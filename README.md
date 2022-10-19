@@ -3,17 +3,13 @@ Projet Transverse Equipe 7
 
 # Setup
 
-1. Sourcer son environnement virtuel : 
-
-    Avec Windows entrer la commande : 
-    ```bash
-    source .env/Scripts/activate
-    ```
+1. Installer Poetry  : 
+https://python-poetry.org/docs/
     
-2. Installer les packages django : 
+2. Installer les packages avec poetry (dossier racine) : 
 
      ```bash
-    pip install django djangorestframework django-rest-knox
+    poetry install
     ```
 
 3. Installer les packages npm dans le dossier frontend :
@@ -24,11 +20,17 @@ Projet Transverse Equipe 7
  
  # Commandes utiles 
  
+ - Activer l'environnement virtuel poetry : 
+   
+   ```bash
+    poetry shell 
+    ```
+ 
  - Lancer le projet django : 
  Se mettre dans le dossier src :
  
      ```bash
-    python manage.py runserver   
+    poetry run python manage.py runserver   
     ```
     
  - Lancer le projet react : 
