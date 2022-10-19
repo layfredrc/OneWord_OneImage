@@ -19,8 +19,8 @@ https://python-poetry.org/docs/
     ```
  
  4. Lancer un build du frontend pour que le backend puisse récupérer les vues :
-  
-  ```bash
+    
+    ```bash
     npm run build
     ```
  
