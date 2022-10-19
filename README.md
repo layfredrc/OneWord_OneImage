@@ -18,6 +18,12 @@ https://python-poetry.org/docs/
     npm i
     ```
  
+ 4. Lancer un build du frontend pour que le backend puisse récupérer les vues :
+  
+  ```bash
+    npm run build
+    ```
+ 
  # Commandes utiles 
  
  - Activer l'environnement virtuel poetry : 
