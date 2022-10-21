@@ -3,23 +3,23 @@ import Logo from "../images/logo.svg";
 import styled from "styled-components";
 
 const Nav = () => {
-    return (
-        <Menu>
-            <li>
-                <img src={Logo} alt='Logo' />
-            </li>
+	return (
+		<Menu>
+			<li>
+				<img src={Logo} alt='Logo' />
+			</li>
 
-            <li>
-                <a href=''>Feed</a>
-            </li>
-            <li>
-                <a href=''>Login</a>
-            </li>
-            <li>
-                <button>Sign Up</button>
-            </li>
-        </Menu>
-    );
+			<li>
+				<a href=''>Feed</a>
+			</li>
+			<li>
+				<a href=''>Login</a>
+			</li>
+			<li>
+				<button>Sign Up</button>
+			</li>
+		</Menu>
+	);
 };
 
 const Menu = styled.ul`
@@ -76,8 +76,8 @@ const Menu = styled.ul`
 		}
 	}
 
-	@media (max-width: 426px) {
-		padding: 0 0px 0 10px;
+	@media (max-width: 600px) {
+		padding: 0 0px 0 2rem;
 		gap: 15px;
 		/* li:nth-child(2),
 		li:nth-child(3),

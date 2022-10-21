@@ -3,7 +3,8 @@ import "./App.css";
 import HeroSection from "./components/HeroSection";
 import styled from "styled-components";
 import Nav from "./components/Nav";
-
+import Features from "./components/Features";
+import FooterLinks from "./components/FooterLinks";
 export default function App() {
 	return (
 		<Wrapper>
@@ -15,6 +16,9 @@ export default function App() {
 			</SplineContainer>
 			<Nav />
 			<HeroSection />
+			<RelativeLayout />
+			<Features />
+			<FooterLinks />
 		</Wrapper>
 	);
 }
@@ -58,4 +62,10 @@ const SplineContainer = styled.div`
 			transform: scale(0.45) translateX(-50px);
 		}
 	}
+`;
+
+const RelativeLayout = styled.div`
+	position: relative;
+	height: 130vh;
+	z-index: -1;
 `;

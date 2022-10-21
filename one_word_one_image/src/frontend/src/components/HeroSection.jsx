@@ -4,33 +4,33 @@ import IconYoutube from "../images/icon-youtube.svg";
 import IconLaptop from "../images/icon-laptop.svg";
 import styled from "styled-components";
 const HeroSection = () => {
-    return (
-        <div>
-            <ContentWrapper>
-                <Content>
-                    <h1>
-                        One Word <br /> One Image
-                    </h1>
-                    <p>
-                        Create new content with a blazing fast solution. Powered By AI.
-                        <br />
-                        ©OneWordOneOImage is here to deliver good and meaningful video
-                        content.
-                    </p>
+	return (
+		<div>
 
-                    <button>
-                        <img src={IconLaptop} alt='Download' />
-                        Start Creating
-                    </button>
-                </Content>
-            </ContentWrapper>
-            <Social>
-                <div />
-                <img src={IconTwitter} alt='Twitter' />
-                <img src={IconYoutube} alt='Youtube' />
-            </Social>
-        </div>
-    );
+			<Content>
+				<h1>
+					One Word <br /> One Image
+				</h1>
+				<p>
+					Create new content with a blazing fast solution. Powered By AI.
+					<br />
+					©OneWordOneOImage is here to deliver good and meaningful video
+					content.
+				</p>
+
+				<button>
+					<img src={IconLaptop} alt='Download' />
+					Start Creating
+				</button>
+			</Content>
+
+			<Social>
+				<div />
+				<img src={IconTwitter} alt='Twitter' />
+				<img src={IconYoutube} alt='Youtube' />
+			</Social>
+		</div>
+	);
 };
 
 const Content = styled.div`
@@ -43,6 +43,7 @@ const Content = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 80px;
+
 	@media (max-width: 1024px) {
 		gap: 40px;
 	}
@@ -62,7 +63,6 @@ const Content = styled.div`
 		}
 		@media (max-width: 800px) {
 			font-size: 40px;
-			max-width: 300px;
 		}
 		@media (max-width: 600px) {
 			padding-top: 250px;
@@ -110,15 +110,12 @@ const Content = styled.div`
 	button {
 		margin: 0 30px 0 100px;
 
-		@media (max-width: 1024px) {
+		@media (max-width: 425px) {
 			margin: 0 30px;
 		}
 	}
 `;
 
-const ContentWrapper = styled.div`
-	display: flex;
-`;
 
 const Social = styled.div`
 	position: absolute;
@@ -129,7 +126,7 @@ const Social = styled.div`
 	gap: 30px;
 	align-items: center;
 
-	@media (max-width: 1024px) {
+	@media (max-width: 425px) {
 		display: none;
 	}
 
