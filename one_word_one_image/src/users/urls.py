@@ -1,7 +1,7 @@
-from rest_framework import routers
-from .api import UserView 
+from django.contrib import admin
+from django.urls import path, include
+from django.views.generic import TemplateView
 
-router = routers.DefaultRouter()
-router.register('api/users',UserView,'users')
-
-urlpatterns = router.urls
+urlpatterns = [
+    path("admin/", admin.site.urls)
+]
