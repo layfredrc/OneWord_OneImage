@@ -1,7 +1,7 @@
 import React from "react";
-import importMusic from "../images/importMusic.svg";
-import robot from "../images/robot.svg";
-import newClip from "../images/newClip.svg";
+import importMusic from "../assets/images/importMusic.svg";
+import robot from "../assets/images/robot.svg";
+import newClip from "../assets/images/newClip.svg";
 import styled from "styled-components";
 
 const Features = () => {

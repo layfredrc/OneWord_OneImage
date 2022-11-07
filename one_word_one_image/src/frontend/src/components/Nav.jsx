@@ -1,6 +1,7 @@
 import React from "react";
-import Logo from "../images/logo.svg";
+import Logo from "../assets/images/logo.svg";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
 	return (
@@ -13,10 +14,12 @@ const Nav = () => {
 				<a href=''>Feed</a>
 			</li>
 			<li>
-				<a href=''>Login</a>
+				<Link to='/login'>Login</Link>
 			</li>
 			<li>
-				<button>Sign Up</button>
+				<Link to="/register">
+					<button>Sign Up</button>
+				</Link>
 			</li>
 		</Menu>
 	);

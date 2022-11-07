@@ -1,5 +1,5 @@
 import { createStyles, Container, Group, Anchor } from '@mantine/core';
-import Logo from "../images/logo.svg";
+import Logo from "../assets/images/logo.svg";
 
 const useStyles = createStyles((theme) => ({
     footer: {

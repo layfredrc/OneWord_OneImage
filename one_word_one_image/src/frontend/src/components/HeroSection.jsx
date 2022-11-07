@@ -1,7 +1,7 @@
 import React from "react";
-import IconTwitter from "../images/icon-twitter.svg";
-import IconYoutube from "../images/icon-youtube.svg";
-import IconLaptop from "../images/icon-laptop.svg";
+import IconTwitter from "../assets/images/icon-twitter.svg";
+import IconYoutube from "../assets/images/icon-youtube.svg";
+import IconLaptop from "../assets/images/icon-laptop.svg";
 import styled from "styled-components";
 const HeroSection = () => {
 	return (

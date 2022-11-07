@@ -1,5 +1,34 @@
 @import url("https://fonts.googleapis.com/css2?family=Spline+Sans+Mono:wght@400;500;600;700&family=Spline+Sans:wght@400;500;600&display=swap");
 
+@font-face {
+	font-family: "Gilroy";
+	src: local("Gilroy Regular"), local("Gilroy-Regular"),
+		url("./assets/fonts/Gilroy-Regular.woff2") format("woff2");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Gilroy";
+	src: local("Gilroy Semibold"), local("Gilroy-Semibold"),
+		url("./assets/fonts/Gilroy-Semibold.woff2") format("woff2");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Gilroy";
+	src: local("Gilroy Medium"), local("Gilroy-Medium"),
+		url("./assets/fonts/Gilroy-Medium.woff2") format("woff2");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Gilroy";
+	src: local("Gilroy Bold"), local("Gilroy-Bold"),
+		url("./assets/fonts/Gilroy-Bold.woff2") format("woff2");
+	font-weight: normal;
+	font-style: normal;
+}
+
 * {
 	margin: 0;
 	padding: 0;
