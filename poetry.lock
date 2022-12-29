@@ -1,6 +1,6 @@
 [[package]]
 name = "asgiref"
-version = "3.5.2"
+version = "3.6.0"
 description = "ASGI specs, helper code, and adapters"
 category = "main"
 optional = false
@@ -10,8 +10,8 @@ python-versions = ">=3.7"
 tests = ["mypy (>=0.800)", "pytest", "pytest-asyncio"]
 
 [[package]]
-name = "Django"
-version = "4.1.2"
+name = "django"
+version = "4.1.4"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
 category = "main"
 optional = false
@@ -25,6 +25,17 @@ tzdata = {version = "*", markers = "sys_platform == \"win32\""}
 [package.extras]
 argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
+
+[[package]]
+name = "django-cors-headers"
+version = "3.13.0"
+description = "django-cors-headers is a Django application for handling the server headers required for Cross-Origin Resource Sharing (CORS)."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+Django = ">=3.2"
 
 [[package]]
 name = "djangorestframework"
@@ -48,7 +59,7 @@ python-versions = ">=3.6"
 
 [[package]]
 name = "pytz"
-version = "2022.5"
+version = "2022.7"
 description = "World timezone definitions, modern and historical"
 category = "main"
 optional = false
@@ -64,7 +75,7 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "tzdata"
-version = "2022.5"
+version = "2022.7"
 description = "Provider of IANA time zone data"
 category = "main"
 optional = false
@@ -72,17 +83,21 @@ python-versions = ">=2"
 
 [metadata]
 lock-version = "1.1"
-python-versions = "^3.10"
-content-hash = "84c3f12a58f5f9259baabf90e6aa9996b01d044be4944924c857984dd072aeed"
+python-versions = "^3.9"
+content-hash = "639c11d4ff91754a6d79aa76d1ef97f55ed3f0e835683673f635ac9caf1ba3e3"
 
 [metadata.files]
 asgiref = [
-    {file = "asgiref-3.5.2-py3-none-any.whl", hash = "sha256:1d2880b792ae8757289136f1db2b7b99100ce959b2aa57fd69dab783d05afac4"},
-    {file = "asgiref-3.5.2.tar.gz", hash = "sha256:4a29362a6acebe09bf1d6640db38c1dc3d9217c68e6f9f6204d72667fc19a424"},
+    {file = "asgiref-3.6.0-py3-none-any.whl", hash = "sha256:71e68008da809b957b7ee4b43dbccff33d1b23519fb8344e33f049897077afac"},
+    {file = "asgiref-3.6.0.tar.gz", hash = "sha256:9567dfe7bd8d3c8c892227827c41cce860b368104c3431da67a0c5a65a949506"},
 ]
-Django = [
-    {file = "Django-4.1.2-py3-none-any.whl", hash = "sha256:26dc24f99c8956374a054bcbf58aab8dc0cad2e6ac82b0fe036b752c00eee793"},
-    {file = "Django-4.1.2.tar.gz", hash = "sha256:b8d843714810ab88d59344507d4447be8b2cf12a49031363b6eed9f1b9b2280f"},
+django = [
+    {file = "Django-4.1.4-py3-none-any.whl", hash = "sha256:0b223bfa55511f950ff741983d408d78d772351284c75e9f77d2b830b6b4d148"},
+    {file = "Django-4.1.4.tar.gz", hash = "sha256:d38a4e108d2386cb9637da66a82dc8d0733caede4c83c4afdbda78af4214211b"},
+]
+django-cors-headers = [
+    {file = "django-cors-headers-3.13.0.tar.gz", hash = "sha256:f9dc6b4e3f611c3199700b3e5f3398c28757dcd559c2f82932687f3d0443cfdf"},
+    {file = "django_cors_headers-3.13.0-py3-none-any.whl", hash = "sha256:37e42883b5f1f2295df6b4bba96eb2417a14a03270cb24b2a07f021cd4487cf4"},
 ]
 djangorestframework = [
     {file = "djangorestframework-3.14.0-py3-none-any.whl", hash = "sha256:eb63f58c9f218e1a7d064d17a70751f528ed4e1d35547fdade9aaf4cd103fd08"},
@@ -102,14 +117,14 @@ psycopg2 = [
     {file = "psycopg2-2.9.5.tar.gz", hash = "sha256:a5246d2e683a972e2187a8714b5c2cf8156c064629f9a9b1a873c1730d9e245a"},
 ]
 pytz = [
-    {file = "pytz-2022.5-py2.py3-none-any.whl", hash = "sha256:335ab46900b1465e714b4fda4963d87363264eb662aab5e65da039c25f1f5b22"},
-    {file = "pytz-2022.5.tar.gz", hash = "sha256:c4d88f472f54d615e9cd582a5004d1e5f624854a6a27a6211591c251f22a6914"},
+    {file = "pytz-2022.7-py2.py3-none-any.whl", hash = "sha256:93007def75ae22f7cd991c84e02d434876818661f8df9ad5df9e950ff4e52cfd"},
+    {file = "pytz-2022.7.tar.gz", hash = "sha256:7ccfae7b4b2c067464a6733c6261673fdb8fd1be905460396b97a073e9fa683a"},
 ]
 sqlparse = [
     {file = "sqlparse-0.4.3-py3-none-any.whl", hash = "sha256:0323c0ec29cd52bceabc1b4d9d579e311f3e4961b98d174201d5622a23b85e34"},
     {file = "sqlparse-0.4.3.tar.gz", hash = "sha256:69ca804846bb114d2ec380e4360a8a340db83f0ccf3afceeb1404df028f57268"},
 ]
 tzdata = [
-    {file = "tzdata-2022.5-py2.py3-none-any.whl", hash = "sha256:323161b22b7802fdc78f20ca5f6073639c64f1a7227c40cd3e19fd1d0ce6650a"},
-    {file = "tzdata-2022.5.tar.gz", hash = "sha256:e15b2b3005e2546108af42a0eb4ccab4d9e225e2dfbf4f77aad50c70a4b1f3ab"},
+    {file = "tzdata-2022.7-py2.py3-none-any.whl", hash = "sha256:2b88858b0e3120792a3c0635c23daf36a7d7eeeca657c323da299d2094402a0d"},
+    {file = "tzdata-2022.7.tar.gz", hash = "sha256:fe5f866eddd8b96e9fcba978f8e503c909b19ea7efda11e52e39494bad3a7bfa"},
 ]

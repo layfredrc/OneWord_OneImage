@@ -1,14 +1,16 @@
 [tool.poetry]
-name = "one word one image"
+name = "django-app"
 version = "0.1.0"
 description = ""
-authors = ["layfredrc <47161258+layfredrc@users.noreply.github.com>"]
+authors = ["imbadr <tadjer.badr@gmail.com>"]
 readme = "README.md"
+packages = [{include = "django_app"}]
 
 [tool.poetry.dependencies]
-python = "^3.10"
-Django = "^4.1.2"
+python = "^3.9"
+django = "^4.1.4"
 djangorestframework = "^3.14.0"
+django-cors-headers = "^3.13.0"
 psycopg2 = "^2.9.5"
 
 
