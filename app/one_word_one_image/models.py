@@ -1,11 +1,8 @@
-from django.db import models
+from django.db import models 
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
-class User(models.Model):
-    first_name = models.CharField(max_length = 120)
-    last_name = models.CharField(max_length = 120)
-    email = models.EmailField(max_length = 120, unique = True)
-    username = models.CharField(max_length = 120, unique = True)
+class User(AbstractUser):
     profile_picture = models.ImageField(upload_to = "profile_pictures", blank = True)
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)

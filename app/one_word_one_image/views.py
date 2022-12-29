@@ -1,9 +1,13 @@
 from django.shortcuts import render
 from rest_framework import viewsets, permissions
-from .serializers import UserSerializer, ClipSerializer
-from .models import User, Clip
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import UserSerializer, ClipSerializer, CommentSerializer, MyTokenObtainPairSerializer
+from .models import User, Clip, Comment
 
-# Create your views here.
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
+
 
 class UserView(viewsets.ModelViewSet):
     serializer_class = UserSerializer
@@ -14,4 +18,10 @@ class UserView(viewsets.ModelViewSet):
 class ClipView(viewsets.ModelViewSet):
     serializer_class = ClipSerializer
     queryset = Clip.objects.all()
+    permission_classes = [permissions.AllowAny]
+
+
+class CommentView(viewsets.ModelViewSet):
+    serializer_class = CommentSerializer
+    queryset = Comment.objects.all()
     permission_classes = [permissions.AllowAny]
