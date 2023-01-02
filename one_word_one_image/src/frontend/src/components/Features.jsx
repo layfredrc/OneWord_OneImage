@@ -132,6 +132,7 @@ const TextContent = styled.div`
 
 const FeaturesContainer = styled.div`
 	padding: 2rem;
+	margin-bottom: 3rem;
 	@media screen and (max-width: 374px) {
 		padding: 0.5rem;
 	}

@@ -1,28 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 import Logo from "../assets/images/logo.svg";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import profile from "../assets/images/profile.svg";
 
-const Nav = () => {
-	return (
-		<Menu>
-			<li>
-				<img src={Logo} alt='Logo' />
-			</li>
-
-			<li>
-				<a href=''>Feed</a>
-			</li>
-			<li>
-				<Link to='/login'>Login</Link>
-			</li>
-			<li>
-				<Link to="/register">
-					<button>Sign Up</button>
+const Nav = ({ isLogged }) => {
+	if (!isLogged) {
+		return (
+			<Menu>
+				<Link to='/'>
+					<li>
+						<img src={Logo} alt='Logo' />
+					</li>
 				</Link>
-			</li>
-		</Menu>
-	);
+
+				<li>
+					<a href='/feed'>Feed</a>
+				</li>
+				<li>
+					<Link to='/login'>Login</Link>
+				</li>
+				<li>
+					<Link to='/register'>
+						<button>Sign Up</button>
+					</Link>
+				</li>
+			</Menu>
+		);
+	} else {
+		return (
+			<MenuLoggedIn>
+				<div className='left'>
+					<Link to='/'>
+						<li>
+							<img src={Logo} alt='Logo' />
+						</li>
+					</Link>
+
+					<li>
+						<Link to='/feed'>Feed</Link>
+					</li>
+					<li>
+						<Link to='/create'>Create</Link>
+					</li>
+				</div>
+				<div className='right'>
+					<li>
+						<Link to='/register'>
+							<button>
+								<img src={profile} alt='profile' />
+							</button>
+						</Link>
+					</li>
+				</div>
+			</MenuLoggedIn>
+		);
+	}
 };
 
 const Menu = styled.ul`
@@ -89,6 +122,21 @@ const Menu = styled.ul`
 			display: none;
 		} */
 	}
+`;
+
+const MenuLoggedIn = styled(Menu)`
+	width: 100%;
+
+	.left {
+		display: flex;
+		gap: 30px;
+		align-items: center;
+	}
+
+	.right {
+		margin-right: 200px;
+	}
+	justify-content: space-between;
 `;
 
 export default Nav;

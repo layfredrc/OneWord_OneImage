@@ -48,6 +48,26 @@ h1 {
 	line-height: 1.5;
 }
 
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+a:active {
+	text-decoration: none;
+}
+
+a:visited {
+	text-decoration: none;
+}
+
+a:focus {
+	text-decoration: none;
+}
+
 html,
 body,
 #root {

@@ -13,6 +13,7 @@ import styled from "styled-components";
 import Logo from "../assets/images/logo.svg";
 import GradientButton from "../components/button/GradientButton";
 import { Link } from "react-router-dom";
+import FooterLinks from "../components/FooterLinks";
 const useStyles = createStyles((theme) => ({
 	wrapper: {
 		minHeight: 900,
@@ -27,10 +28,9 @@ const useStyles = createStyles((theme) => ({
 	},
 
 	form: {
-		borderRight: `1px solid ${
-			theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.colors.gray[3]
-		}`,
-		minHeight: 930,
+		borderRight: `1px solid ${theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.colors.gray[3]
+			}`,
+		minHeight: 1000,
 		minWidth: "33%",
 		paddingTop: 80,
 		backgroundColor: "#0E1129",
@@ -57,60 +57,63 @@ const useStyles = createStyles((theme) => ({
 export default function LoginPage() {
 	const { classes } = useStyles();
 	return (
-		<RowWrapper>
-			<Paper className={classes.form} radius={0} py={30} px={80}>
-				<LogoContainer to='/'>
-					<img src={Logo} alt='Logo' />
-					<h2>OneWordOneImage</h2>
-				</LogoContainer>
+		<>
+			<RowWrapper>
+				<Paper className={classes.form} radius={0} py={30} px={80}>
+					<LogoContainer to='/'>
+						<img src={Logo} alt='Logo' />
+						<h2>OneWordOneImage</h2>
+					</LogoContainer>
 
-				<Title order={1} className={classes.title} mt={50} mb={50}>
-					Let's Get Started !
-				</Title>
+					<Title order={1} className={classes.title} mt={50} mb={50}>
+						Let's Get Started !
+					</Title>
 
-				<TextInput
-					label='Email address'
-					placeholder='hello@gmail.com'
-					size='xl'
-					labelProps={{ mb: 10 }}
-					styles={{
-						input: { backgroundColor: "#0C1E51", border: "1px solid #3672F8" },
-					}}
-					radius='lg'
-				/>
-				<PasswordInput
-					label='Password'
-					placeholder='Your password'
-					labelProps={{ mb: 10 }}
-					styles={{
-						input: { backgroundColor: "#0C1E51", border: "1px solid #3672F8" },
-					}}
-					radius='lg'
-					size='xl'
-					mt={30}
-					mb={50}
-				/>
-				<GradientButton
-					gradientColor='linear-gradient(117.03deg, #3672F8 0%, #B01EFF 100%)'
-					type='submit'
-					size='xl'
-					radius='md'
-					fullWidth>
-					Register
-				</GradientButton>
+					<TextInput
+						label='Email address'
+						placeholder='hello@gmail.com'
+						size='xl'
+						labelProps={{ mb: 10 }}
+						styles={{
+							input: { backgroundColor: "#0C1E51", border: "1px solid #3672F8" },
+						}}
+						radius='lg'
+					/>
+					<PasswordInput
+						label='Password'
+						placeholder='Your password'
+						labelProps={{ mb: 10 }}
+						styles={{
+							input: { backgroundColor: "#0C1E51", border: "1px solid #3672F8" },
+						}}
+						radius='lg'
+						size='xl'
+						mt={30}
+						mb={50}
+					/>
+					<GradientButton
+						gradientColor='linear-gradient(117.03deg, #3672F8 0%, #B01EFF 100%)'
+						type='submit'
+						size='xl'
+						radius='md'
+						fullWidth>
+						Register
+					</GradientButton>
 
-				<Text align='center' size='lg' mt='md'>
-					Already have an account?{" "}
-					<Anchor
-						href='#'
-						weight={700}
-						onClick={(event) => event.preventDefault()}>
-						Sign In
-					</Anchor>
-				</Text>
-			</Paper>
-			<div className={classes.wrapper}></div>
-		</RowWrapper>
+					<Text align='center' size='lg' mt='md'>
+						Already have an account?{" "}
+						<Anchor
+							href='/login'
+							weight={700}
+						>
+							Sign In
+						</Anchor>
+					</Text>
+				</Paper>
+				<div className={classes.wrapper}></div>
+			</RowWrapper>
+			<FooterLinks />
+		</>
 	);
 }
 

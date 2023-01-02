@@ -1,26 +1,36 @@
-import React from "react";
+import React, { Component } from "react";
 import HeroSection from "../components/HeroSection";
 import styled from "styled-components";
 import Nav from "../components/Nav";
 import Features from "../components/Features";
 import FooterLinks from "../components/FooterLinks";
 
-const HomePage = () => {
-	return (
-		<Wrapper>
-			<SplineContainer>
-				<iframe
-					src='https://my.spline.design/daccord-d61dafbf82276aebdcf77c96d1423423/'
-					frameBorder='0'
-					className='spline'></iframe>
-			</SplineContainer>
-			<Nav />
-			<HeroSection />
-			<RelativeLayout />
-			<Features />
-			<FooterLinks />
-		</Wrapper>
-	);
+export default class HomePage extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			isLogged: false,
+		};
+	}
+
+	render() {
+		return (
+			<Wrapper>
+				<SplineContainer>
+					<iframe
+						src='https://my.spline.design/daccord-d61dafbf82276aebdcf77c96d1423423/'
+						frameBorder='0'
+						className='spline'></iframe>
+				</SplineContainer>
+				<Nav isLogged={this.state.isLogged} />
+				<HeroSection />
+				<RelativeLayout />
+				<Features />
+				<FooterLinks />
+			</Wrapper>
+		);
+
+	}
 };
 
 const Wrapper = styled.div`
@@ -68,4 +78,3 @@ const RelativeLayout = styled.div`
 	height: 130vh;
 	z-index: -1;
 `;
-export default HomePage;

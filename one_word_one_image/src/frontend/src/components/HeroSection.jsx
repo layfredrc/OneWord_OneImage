@@ -35,7 +35,7 @@ const HeroSection = () => {
 
 const Content = styled.div`
 	position: absolute;
-	top: 80px;
+	top: 100px;
 	width: 100%;
 	margin-top: 3rem;
 	padding-bottom: 100px;
