@@ -4,17 +4,9 @@ import {
     Paper,
     Text,
     Group,
-    ActionIcon,
-    Divider,
     Image,
     Stack,
 } from "@mantine/core";
-import {
-    IconEye,
-    IconHeart,
-    IconMessageCircle2,
-    IconSend,
-} from "@tabler/icons";
 
 import styled from "styled-components";
 
@@ -50,7 +42,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const CreateCard = ({ thumbnail }) => {
-    const { classes, theme } = useStyles();
+    const { classes } = useStyles();
     return (
         <Paper withBorder radius='md' className={classes.card} p={20}>
             <Group mt='sm'>

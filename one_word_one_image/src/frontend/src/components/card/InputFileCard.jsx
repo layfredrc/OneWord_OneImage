@@ -1,60 +1,35 @@
 import React from "react";
-import {
-    createStyles,
-    Paper,
-    Text,
-    Group,
-    ActionIcon,
-    Divider,
-    Image,
-    Stack,
-} from "@mantine/core";
-import {
-    IconEye,
-    IconHeart,
-    IconMessageCircle2,
-    IconSend,
-} from "@tabler/icons";
+import { createStyles, Paper, Text, Group, Image, Stack } from "@mantine/core";
+import {} from "@tabler/icons";
 
 import styled from "styled-components";
 import illustration from "../../assets/images/import.svg";
 const useStyles = createStyles((theme) => ({
-    card: {
-        background: "rgba(41, 41, 83, 1)",
-        bordeRadius: "5px",
-        position: "relative",
-        zIndex: "auto",
-        boxShadow: "0px 50px 100px rgba(34, 79, 169, 0.3)",
-        width: "500px",
-        margin: "5rem 0",
-
-    },
-
-    z: {
-        zIndex: "0",
-    },
+	card: {
+		background: "rgba(41, 41, 83, 1)",
+		bordeRadius: "5px",
+		position: "relative",
+		zIndex: "auto",
+		boxShadow: "0px 50px 100px rgba(34, 79, 169, 0.3)",
+		width: "500px",
+		margin: "5rem 0",
+	},
 }));
 
 const InputFileCard = () => {
-    const { classes, theme } = useStyles();
-    return (
-        <Paper withBorder radius='md' className={classes.card} p={20}>
-            <Group mt='sm' position="center">
-                <Image src={illustration} width={300}
-                    height={400}
-                    fit="contain" />
-            </Group>
+	const { classes } = useStyles();
+	return (
+		<Paper withBorder radius='md' className={classes.card} p={20}>
+			<Group mt='sm' position='center'>
+				<Image src={illustration} width={300} height={400} fit='contain' />
+			</Group>
 
-            <Stack p='md' align='center' justify='center'>
-                <Text>
-                    Import audio files from your local devices
-                    .mp3 / .wav
-                </Text>
-            </Stack>
-
-
-        </Paper>
-    );
+			<Stack p='md' align='center' justify='center'>
+				<Text>Import audio files from your local devices .mp3 / .wav</Text>
+					
+			</Stack>
+		</Paper>
+	);
 };
 
 export default InputFileCard;

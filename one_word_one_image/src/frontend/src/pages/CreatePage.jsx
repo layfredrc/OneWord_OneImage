@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Nav from "../components/Nav";
-import { Footer, Stack, Group, Title, ActionIcon } from "@mantine/core";
+import { Stack, Group, Title, ActionIcon } from "@mantine/core";
 import CreateCard from "../components/card/CreateCard";
 import styled from "styled-components";
 import popSmoke from "../assets/images/popSmoke.png";
@@ -35,7 +35,7 @@ export default class CreatePage extends Component {
 						</Group>
 
 						<Link to='/choose'>
-							<Group position='center'>
+							<Group position='center' mb='xl'>
 								<Title
 									color='white'
 									style={{ textDecoration: "none", fontFamily: "Gilroy" }}>

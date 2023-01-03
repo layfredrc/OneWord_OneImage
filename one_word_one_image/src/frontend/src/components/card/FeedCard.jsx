@@ -9,7 +9,6 @@ import {
 	Avatar,
 	Divider,
 	Image,
-	SimpleGrid,
 	Stack,
 } from "@mantine/core";
 import {
@@ -18,12 +17,8 @@ import {
 	IconFileZip,
 	IconTrash,
 	IconHeart,
-	IconMessage,
-	IconShare,
-	IconMessageCircle,
 	IconMessageCircle2,
 	IconSend,
-	IconBookmark,
 } from "@tabler/icons";
 
 import styled from "styled-components";
@@ -60,7 +55,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const FeedCard = ({ thumbnail }) => {
-	const { classes, theme } = useStyles();
+	const { classes } = useStyles();
 	return (
 		<Paper withBorder radius='md' className={classes.card} p={20}>
 			<Group position='apart'>

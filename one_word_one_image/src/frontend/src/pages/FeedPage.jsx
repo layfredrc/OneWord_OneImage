@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Nav from "../components/Nav";
-import { Footer, Stack } from "@mantine/core";
+import { Stack } from "@mantine/core";
 
 import styled from "styled-components";
 
