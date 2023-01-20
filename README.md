@@ -1,63 +1,88 @@
+# Project OneWordOneImage (OWOI) | Equipe 7
 
-# OneWord_OneImage
+Badr TADJER | Frédéric LAY | Pierre-Louis SERGENT | Leo TRAN | Meo BIENFAIT | Younes BOUCHAKOUR
 
-Projet Transverse Equipe 7
+## Introduction
 
-# Setup
+OneWordOneimage est un outil qui permet aux utilisateurs de créer des clips à base d'images synchronisées aux lyrics d'une musique.
 
-1. Installer Poetry  :
-``https://python-poetry.org/docs/``
+Follow this link to see the source code : [Github](https://github.com/layfredrc/OneWord_OneImage/)
 
-2. Installer les packages avec poetry (dossier racine) :
+## Execution
 
-    ```bash
-        poetry install
+### requirements
+
+- Poetry
+- Python ^3.10
+- PostgreSQL
+- Web Browser
+
+### setup
+
+1. Configure and launch the **``poetry``** environment
+
+    Documentation : [Poetry](https://python-poetry.org/docs/)
+
+    ```sh
+    # Launch poetry
+    $ poetry shell
+
+    # First installation
+    # Check the Python version
+    $ poetry env info
+
+    # First installation
+    # Change the Python version (if less than 3.10^)
+    $ poetry enve use <path_python_^3.10>
+
+    # Install the libraries of the environment
+    $ poetry install
     ```
 
-3. Installer les packages npm dans le dossier app/frontend :
+2. Install and build **``npm``** libraries
 
-    ```bash
-        npm i
+    ```sh
+    # Install the npm libraries
+    # path : app/frontend
+    $ npm install
+
+    # Build the frontend
+    $ npm run build
     ```
 
-4. Lancer un build du frontend pour que le backend puisse récupérer les vues :
+3. Install and launch PostgreSQL
 
-    ```bash
-        npm run build
+    Documentation : [PostgreSQL](https://www.postgresql.org/download/)
+
+    ```yml
+    # Whith these parameters
+    USER: 'root'
+    PASSWORD: 'password'
     ```
 
-# Commandes utiles
-
-- Activer l'environnement virtuel poetry :
-
-    ```bash
-        poetry shell 
+    ```sql
+    -- Create Database 
+    CREATE DATABASE owoidb;
     ```
 
-- Lancer le projet django :
- Se mettre dans le dossier src :
+4. ORM : Importation of the models on the Database (*``At the first launch only``*)
 
-    ```bash
-        poetry run python manage.py runserver   
+    ```sh
+    # Create a version of the migration
+    $ python manage.py migrate 
+
+    # Apply the migration on the Database
+    $ python manage.py makemigrations 
     ```
 
-- Lancer le projet react :
- Se mettre dans le dossier frontend :
+5. Launch the Django server
 
-    ```bash
-        npm start
-    ```
+    ```sh
+    # Create a superuser on the Database
+    $ python manage.py createsuperuser
+        > Username: admin
+        > Email address: admin@example.com
 
-- Lancer la migration de la base de données :
- Se mettre dans le dossier app :
-
-    ```bash
-        poetry run python manage.py migrate 
-    ```
-
-- Créer une migration quand il y a des changements sur le fichier models.py :
- Se mettre dans le dossier app :
-
-    ```bash
-        poetry run python manage.py makemigrations 
+    # Launch the Django server
+    $ python manage.py runserver
     ```
