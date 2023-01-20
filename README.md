@@ -33,7 +33,7 @@ Follow this link to see the source code : [Github](https://github.com/layfredrc/
 
     # First installation
     # Change the Python version (if less than 3.10^)
-    $ poetry enve use <path_python_^3.10>
+    $ poetry enve use < path_python_^3.10 >
 
     # Install the libraries of the environment
     $ poetry install
