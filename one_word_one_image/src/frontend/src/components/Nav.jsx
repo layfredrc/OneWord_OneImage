@@ -15,7 +15,7 @@ const Nav = ({ isLogged }) => {
 				</Link>
 
 				<li>
-					<a href='/feed'>Feed</a>
+					<Link to='/feed'>Feed</Link>
 				</li>
 				<li>
 					<Link to='/login'>Login</Link>
@@ -25,7 +25,7 @@ const Nav = ({ isLogged }) => {
 						<button>Sign Up</button>
 					</Link>
 				</li>
-			</Menu>
+			</Menu >
 		);
 	} else {
 		return (
