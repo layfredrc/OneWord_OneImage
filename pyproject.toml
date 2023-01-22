@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "django-app"
+name = "OneWordOneImage"
 version = "0.1.0"
 description = ""
 authors = ["imbadr <tadjer.badr@gmail.com>"]
 readme = "README.md"
-packages = [{include = "django_app"}]
+packages = [{include = "OneWordOneImage"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
