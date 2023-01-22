@@ -51,10 +51,20 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes = 5),
+    # After five min, the token will expire, and if you try to access an error will be thrown,
+    # The access token is used to access the protected ressources such as the private clips list or user profile
+    # Allow us to check if the access token was sent by our server
     'REFRESH_TOKEN_LIFETIME': timedelta(days = 90),
+    # The refresh token will last for 90 days, and you can use it to get a new access token
+    # After 90 days, you will have to login again
+    # If an attacker logs in with the same username and password, he will receive a different access and refresh token than the original user.
     'ROTATE_REFRESH_TOKENS': True,
+    # When you use the refresh token to get a new access token, the old refresh token will be blacklisted
+    # combiner avec ```ip_middleware.py```
     'BLACKLIST_AFTER_ROTATION': True,
+    # After the refresh token is blacklisted, it will be deleted from the database
     'UPDATE_LAST_LOGIN': False,
+    # When you use the refresh token to get a new access token, the last login will not be updated
 
     'ALGORITHM': 'HS256',
     'VERIFYING_KEY': None, 
