@@ -134,7 +134,7 @@ const MenuLoggedIn = styled(Menu)`
 	}
 
 	.right {
-		margin-right: 200px;
+		margin-right: 150px;
 	}
 	justify-content: space-between;
 `;

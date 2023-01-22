@@ -2,7 +2,6 @@ import React from "react";
 import { createStyles, Paper, Text, Group, Image, Stack } from "@mantine/core";
 import { } from "@tabler/icons";
 import GradientButton from "../button/GradientButton";
-
 import musixmatch from "../../assets/images/musixmatch.svg";
 import rafiki from "../../assets/images/rafiki.svg";
 
@@ -57,7 +56,7 @@ const ChooseCard = () => {
                         shadow="md"
                         onClick={() => console.log("clicked")}
                     >
-                        Use musixmatch API
+                        Use OneWordOneImage AI
                     </GradientButton>
                 </Group>
             </Paper>

@@ -41,18 +41,24 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 
-const CreateCard = ({ thumbnail }) => {
+const CreateCard = ({ cover, title, artist }) => {
     const { classes } = useStyles();
     return (
         <Paper withBorder radius='md' className={classes.card} p={20}>
             <Group mt='sm'>
-                <Image src={thumbnail} />
+                <Image src={cover} fit="cover" alt="cover" />
             </Group>
 
             <Stack p='md' align='center' justify='center'>
-                <Text>
-                    PopSmoke - Welcome To The Party
+                <Text align="center">
+                    {title}
                 </Text>
+
+                <Text align="center">
+                    {artist}
+                </Text>
+
+
             </Stack>
         </Paper>
     );

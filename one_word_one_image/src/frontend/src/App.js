@@ -7,7 +7,6 @@ import LoginPage from "./pages/LoginPage";
 import { MantineProvider } from "@mantine/core";
 import FeedPage from "./pages/FeedPage";
 import CreatePage from "./pages/CreatePage";
-import ChooseImportPage from "./pages/ChooseImportPage";
 export default function App() {
 	return (
 		<>
@@ -19,7 +18,6 @@ export default function App() {
 					<Route path='/' element={<HomePage />} />
 					<Route path='/feed' element={<FeedPage />} />
 					<Route path='/create' element={<CreatePage />} />
-					<Route path='/choose' element={<ChooseImportPage />} />
 					<Route path='/register' element={<SignUpPage />} />
 					<Route path='/login' element={<LoginPage />} />
 				</Routes>
