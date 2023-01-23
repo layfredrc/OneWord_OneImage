@@ -129,8 +129,8 @@ DATABASES = {
    'default': {
        'ENGINE': 'django.db.backends.postgresql',
        'NAME': 'owoidb',
-       'USER': 'postgres',
-       'PASSWORD': 'root',
+       'USER': 'root',
+       'PASSWORD': 'password',
        'HOST': 'localhost',
        'PORT': '5432',
    }
