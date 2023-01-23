@@ -13,6 +13,8 @@ import { LogoContainer } from "./SignUpPage";
 import Logo from "../assets/images/logo.svg";
 import GradientButton from "../components/button/GradientButton";
 import FooterLinks from "../components/FooterLinks";
+import AuthContext from "../context/AuthContext";
+import React, { useContext } from "react";
 
 const useStyles = createStyles((theme) => ({
 	wrapper: {
@@ -56,8 +58,9 @@ const useStyles = createStyles((theme) => ({
 
 export default function LoginPage() {
 	const { classes } = useStyles();
+	let { loginUser } = useContext(AuthContext);
 	return (
-		<>
+		<form on onSubmit={loginUser}>
 			<RowWrapper>
 				<Paper className={classes.form} radius={0} py={30} px={80}>
 					<LogoContainer to='/'>
@@ -72,6 +75,7 @@ export default function LoginPage() {
 					<TextInput
 						label='Email address'
 						placeholder='hello@gmail.com'
+						name="username"
 						size='xl'
 						labelProps={{ mb: 10 }}
 						styles={{
@@ -82,6 +86,7 @@ export default function LoginPage() {
 					<PasswordInput
 						label='Password'
 						placeholder='Your password'
+						name="password"
 						labelProps={{ mb: 10 }}
 						styles={{
 							input: { backgroundColor: "#0C1E51", border: "1px solid #3672F8" },
@@ -113,7 +118,7 @@ export default function LoginPage() {
 				<div className={classes.wrapper}></div>
 			</RowWrapper>
 			<FooterLinks />
-		</>
+		</form>
 	);
 }
 

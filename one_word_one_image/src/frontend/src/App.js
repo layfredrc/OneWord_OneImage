@@ -7,6 +7,9 @@ import LoginPage from "./pages/LoginPage";
 import { MantineProvider } from "@mantine/core";
 import FeedPage from "./pages/FeedPage";
 import CreatePage from "./pages/CreatePage";
+import { AuthProvider } from "./context/AuthContext";
+
+
 export default function App() {
 	return (
 		<>
@@ -14,13 +17,16 @@ export default function App() {
 				theme={{ colorScheme: "dark", fontFamily: "Gilroy" }}
 				withGlobalStyles
 				withNormalizeCSS>
-				<Routes>
-					<Route path='/' element={<HomePage />} />
-					<Route path='/feed' element={<FeedPage />} />
-					<Route path='/create' element={<CreatePage />} />
-					<Route path='/register' element={<SignUpPage />} />
-					<Route path='/login' element={<LoginPage />} />
-				</Routes>
+				<AuthProvider>
+					<Routes>
+						<Route path='/' element={<HomePage />} />
+						<Route path='/feed' element={<FeedPage />} />
+						<Route path='/create' element={<CreatePage />} />
+						<Route path='/register' element={<SignUpPage />} />
+						<Route path='/login' element={<LoginPage />} />
+					</Routes>
+				</AuthProvider>
+
 			</MantineProvider>
 		</>
 	);

@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import Logo from "../assets/images/logo.svg";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import profile from "../assets/images/profile.svg";
+import AuthContext from "../context/AuthContext";
 
 const Nav = ({ isLogged }) => {
-	if (!isLogged) {
+	let { user } = useContext(AuthContext)
+
+	if (!user) {
 		return (
 			<Menu>
 				<Link to='/'>
@@ -22,10 +25,10 @@ const Nav = ({ isLogged }) => {
 				</li>
 				<li>
 					<Link to='/register'>
-						<button>Sign Up</button>
+						<button>Sign Up </button>
 					</Link>
 				</li>
-			</Menu >
+			</Menu>
 		);
 	} else {
 		return (
@@ -48,9 +51,14 @@ const Nav = ({ isLogged }) => {
 					<li>
 						<Link to='/register'>
 							<button>
+								{user && user.username}
 								<img src={profile} alt='profile' />
 							</button>
 						</Link>
+					</li>
+
+					<li>
+						<Link to='/'>Log out</Link>
 					</li>
 				</div>
 			</MenuLoggedIn>
