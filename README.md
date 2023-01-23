@@ -69,10 +69,10 @@ Follow this link to see the source code : [Github](https://github.com/layfredrc/
 
     ```sh
     # Create a version of the migration
-    $ python manage.py migrate 
+    $ python manage.py makemigrations
 
     # Apply the migration on the Database
-    $ python manage.py makemigrations 
+    $ python manage.py migrate 
     ```
 
 5. Launch the Django server
@@ -82,6 +82,7 @@ Follow this link to see the source code : [Github](https://github.com/layfredrc/
     $ python manage.py createsuperuser
         > Username: admin
         > Email address: admin@example.com
+        > Password: password
 
     # Launch the Django server
     $ python manage.py runserver
