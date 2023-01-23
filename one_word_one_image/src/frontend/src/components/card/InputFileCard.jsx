@@ -6,6 +6,7 @@ import styled from "styled-components";
 import illustration from "../../assets/images/import.svg";
 import CreateCard from "./CreateCard";
 import logo from "../../assets/images/logo.svg";
+import newClip from "../../assets/images/newClip.svg";
 const musicMetadata = require('music-metadata-browser');
 
 
@@ -146,7 +147,7 @@ const InputFileCard = () => {
 			</Paper>
 
 			<CreateCard
-				cover={selectedFileCover ? selectedFileCover : logo}
+				cover={selectedFileCover ? selectedFileCover : newClip}
 				title={selectedFileTitle ? selectedFileTitle : "Title of the audio file"}
 				artist={selectedFileArtist ? selectedFileArtist : "Artist of the audio file"}
 

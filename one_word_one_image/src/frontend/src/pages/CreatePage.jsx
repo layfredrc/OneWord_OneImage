@@ -1,13 +1,11 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import Nav from "../components/Nav";
 import { Stack, Group, Title, ActionIcon, Stepper, Button, Input, Loader } from "@mantine/core";
 import CreateCard from "../components/card/CreateCard";
 import ChooseCard from "../components/card/ChooseCard";
 import styled from "styled-components";
-import popSmoke from "../assets/images/popSmoke.png";
 import InputFileCard from "../components/card/InputFileCard";
-import { Link } from "react-router-dom";
-import { IconArrowLeft, IconArrowRight, IconCheck, IconCircleCheck, IconEye, IconMovie, IconVideo } from "@tabler/icons";
+import { IconArrowLeft, IconArrowRight, IconCheck, IconCircleCheck, IconEye, } from "@tabler/icons";
 import FooterLinks from "../components/FooterLinks";
 import GradientButton from "../components/button/GradientButton";
 export default class CreatePage extends Component {
@@ -17,7 +15,9 @@ export default class CreatePage extends Component {
 		this.state = {
 			isLogged: true,
 			active: 0,
-			highestStepVisited: this.active
+			highestStepVisited: this.active,
+			musixMatchIsClicked: false,
+			OWOIAI: false,
 		};
 	}
 
@@ -35,8 +35,28 @@ export default class CreatePage extends Component {
 	// Allow the user to freely go back and forth between visited steps.
 	shouldAllowSelectStep = (step) => this.state.highestStepVisited >= step && this.state.active !== step;
 
+	handlemusixMatchClick = () => {
+		this.setState({
+			musixMatchIsClicked: true,
+			OWOIAI: false,
+		});
+	}
+
+	handleOWOIAIClick = () => {
+		this.setState({
+			musixMatchIsClicked: false,
+			OWOIAI: true,
+		});
+	}
+
 
 	render() {
+
+		const {
+			musixMatchIsClicked,
+			OWOIAI,
+		} = this.state;
+
 		return (
 			<div>
 				<Nav isLogged={this.state.isLogged} />
@@ -85,21 +105,31 @@ export default class CreatePage extends Component {
 								</Group>
 
 								<Group position='center' spacing='xl'>
-									<ChooseCard />
+									<ChooseCard
+										musixmatchIsClicked={this.state.musixMatchIsClicked}
+										OWOIAI={this.state.OWOIAI}
+										handleOWOIAIClick={this.handleOWOIAIClick}
+										handlemusixMatchClick={this.handlemusixMatchClick}
+									/>
 								</Group>
 
 
 								<Group position='center' mt={50} my={100} >
 									<Stack
 										direction='column' spacing='xl'>
-										<Title
-											color='white'
-											style={{ textDecoration: "none", fontFamily: "Gilroy" }}>
-											Enter the name of the song to search for on musixmatch
-										</Title>
-										<Input size="xl" styles={{
-											input: { backgroundColor: "#0C1E51", border: "1px solid #3672F8" },
-										}} />
+										{musixMatchIsClicked && (
+											<>
+												<Title
+													color='white'
+													style={{ textDecoration: "none", fontFamily: "Gilroy" }}>
+													Enter the name of the song to search for on musixmatch
+												</Title>
+												<Input size="xl" styles={{
+													input: { backgroundColor: "#0C1E51", border: "1px solid #3672F8" },
+												}} />
+											</>
+										)}
+
 									</Stack>
 
 								</Group>
