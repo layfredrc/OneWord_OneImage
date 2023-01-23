@@ -44,7 +44,7 @@ Follow this link to see the source code : [Github](https://github.com/layfredrc/
     ```sh
     # Install the npm libraries
     # path : app/frontend
-    $ npm install
+    $ npm install --legacy-peer-deps
 
     # Build the frontend
     $ npm run build
