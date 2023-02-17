@@ -130,7 +130,7 @@ DATABASES = {
        'ENGINE': 'django.db.backends.postgresql',
        'NAME': 'owoidb',
        'USER': 'root',
-       'PASSWORD': 'password',
+       'PASSWORD': 'privatepassword',
        'HOST': 'localhost',
        'PORT': '5432',
    }
