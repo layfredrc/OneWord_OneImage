@@ -1,47 +1,65 @@
-import React, { Component } from "react";
-import Nav from "../components/Nav";
-import { Stack } from "@mantine/core";
+import React, { Component } from 'react'
+import Nav from '../components/Nav'
+import { Stack, Group, Title } from '@mantine/core'
 
-import styled from "styled-components";
+import styled from 'styled-components'
+import Logo from '../assets/images/logo.svg'
 
-import FeedCard from "../components/card/FeedCard";
-import FooterLinks from "../components/FooterLinks";
+import FeedCard from '../components/card/FeedCard'
+import FooterLinks from '../components/FooterLinks'
 
 export default class FeedPage extends Component {
-	constructor(props) {
-		super(props);
+    constructor(props) {
+        super(props)
 
-		this.state = {
-			isLogged: true,
-		};
-	}
+        this.state = {
+            isLogged: true,
+        }
+    }
 
-	render() {
-		return (
-			<div>
-				<Nav isLogged={this.state.isLogged} />
-				<FeedWrapper>
-					<Stack
-						justify='apart'
-						align='center'
-						spacing='xl'
-						style={{
-							position: "relative",
-							zIndex: 1,
-						}}>
-						<FeedCard thumbnail='https://imageio.forbes.com/specials-images/imageserve/5dc59d5fb4d5050007a52962/Astroworld-Festival/960x0.jpg?format=jpg&width=960' />
-						<FeedCard thumbnail='https://wave.fr/images/1916/10/rolling-loud-europe-2021-2.jpg' />
-						<FeedCard thumbnail='https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA120Fx0.img?h=0&w=600&m=6&q=60&u=t&o=f&l=f' />
-					</Stack>
-				</FeedWrapper>
-				<FooterLinks />
-			</div>
-		);
-	}
+    render() {
+        return (
+            <div>
+                <Nav />
+                <Group
+                    position='center'
+                    mt={50}
+                >
+                    <img
+                        src={Logo}
+                        alt='Logo'
+                    />
+                    <Title
+                        style={{ fontFamily: 'Gilroy' }}
+                        color='white'
+                        weight={500}
+                    >
+                        OneWordOneImage
+                    </Title>
+                </Group>
+                <FeedWrapper>
+                    <Stack
+                        justify='apart'
+                        align='center'
+                        spacing='xl'
+                        style={{
+                            position: 'relative',
+                            zIndex: 1,
+                        }}
+                    >
+                        <FeedCard urlVideo='https://www.youtube.com/watch?v=6ONRf7h3Mdk' />
+                        <FeedCard urlVideo='https://www.youtube.com/watch?v=kx7P_ENnDPE' />
+                        <FeedCard urlVideo='https://www.youtube.com/watch?v=x9yop0nYR9g' />
+                    </Stack>
+                </FeedWrapper>
+                <FooterLinks />
+            </div>
+        )
+    }
 }
 
 const FeedWrapper = styled.div`
-	position: relative;
-	z-index: 1;
-	margin-top: 10rem;
-`;
+    position: relative;
+    z-index: 1;
+    margin-top: 10rem;
+`

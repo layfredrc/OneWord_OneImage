@@ -4,8 +4,9 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import profile from '../assets/images/profile.svg'
 import AuthContext from '../context/AuthContext'
+import { IconPower } from '@tabler/icons'
 
-const Nav = ({ isLogged }) => {
+const Nav = () => {
     let { user, logoutUser } = useContext(AuthContext)
 
     if (!user) {
@@ -55,7 +56,7 @@ const Nav = ({ isLogged }) => {
                 </div>
                 <div className='right'>
                     <li>
-                        <Link to='/register'>
+                        <Link to='/clips'>
                             <button>
                                 {user && user.username}
                                 <img
@@ -67,7 +68,12 @@ const Nav = ({ isLogged }) => {
                     </li>
 
                     <li>
-                        <Link onClick={logoutUser}>Log out</Link>
+                        <Link onClick={logoutUser}>
+                            <button className='logout'>
+                                Log out
+                                <IconPower color='white' />
+                            </button>
+                        </Link>
                     </li>
                 </div>
             </MenuLoggedIn>
@@ -143,7 +149,7 @@ const Menu = styled.ul`
 
 const MenuLoggedIn = styled(Menu)`
     width: 100%;
-
+    top: 20px;
     .left {
         display: flex;
         gap: 30px;
@@ -151,9 +157,20 @@ const MenuLoggedIn = styled(Menu)`
     }
 
     .right {
-        margin-right: 150px;
+        margin-right: 100px;
+        display: flex;
+        gap: 30px;
+        align-items: center;
     }
     justify-content: space-between;
+
+    @media (max-width: 600px) {
+        .right {
+            flex-flow: column;
+            margin-top: 100px;
+            gap: 0px;
+        }
+    }
 `
 
 export default Nav

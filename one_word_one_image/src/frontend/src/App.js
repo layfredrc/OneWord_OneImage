@@ -8,6 +8,7 @@ import { MantineProvider } from "@mantine/core";
 import FeedPage from "./pages/FeedPage";
 import CreatePage from "./pages/CreatePage";
 import { AuthProvider } from "./context/AuthContext";
+import ClipsPage from './pages/ClipsPage';
 
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
 						<Route path='/create' element={<CreatePage />} />
 						<Route path='/register' element={<SignUpPage />} />
 						<Route path='/login' element={<LoginPage />} />
+						<Route path="/clips" element={<ClipsPage />} />
 					</Routes>
 				</AuthProvider>
 

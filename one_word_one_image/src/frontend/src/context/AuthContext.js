@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
+import jwt_encode from 'jwt-encode';
 import { useNavigate } from 'react-router-dom';
-
 
 const AuthContext = createContext();
 
@@ -45,6 +45,8 @@ export const AuthProvider = ({ children }) => {
             console.log("authTokens", authTokens)
             navigate('/');
         } else {
+            console.log('data', data)
+            console.log('response', response)
             alert('Wrong username or password')
         }
     }
@@ -68,6 +70,7 @@ export const AuthProvider = ({ children }) => {
         const data = await response.json();
 
         if (response.status === 200) {
+            console.log(data);
             setAuthTokens(data);
             setUser(jwt_decode(data.access));
             localStorage.setItem('authTokens', JSON.stringify(data));
@@ -81,11 +84,47 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    const signUpUser = async (e) => {
+        e.preventDefault();
+
+        // get email, username and password from the form
+        const email = e.target.email.value;
+        const username = e.target.username.value;
+        const password = e.target.password.value;
+        const secret = "";
+        const encodedPassword = jwt_encode(password, secret);
+        console.log(encodedPassword);
+        const response = await fetch('http://127.0.0.1:8000/api/users/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "email": email,
+                "username": username,
+                "password": encodedPassword,
+            }),
+        })
+
+        const data = await response.json();
+
+        if (response.status === 201) {
+            console.log(data);
+            console.log("User Signed Up!");
+            navigate('/');
+
+        } else {
+            alert('Something went wrong');
+        }
+    }
+
+
     const contextData = {
         loginUser: loginUser,
         logoutUser: logoutUser,
         user: user,
         authTokens: authTokens,
+        signUpUser: signUpUser,
     }
 
     useEffect(() => {

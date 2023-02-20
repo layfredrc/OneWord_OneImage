@@ -58,12 +58,9 @@ const useStyles = createStyles((theme) => ({
 
 export default function LoginPage() {
     const { classes } = useStyles()
-    let { loginUser } = useContext(AuthContext)
+    const { loginUser } = useContext(AuthContext)
     return (
-        <form
-            on
-            onSubmit={loginUser}
-        >
+        <form onSubmit={loginUser}>
             <RowWrapper>
                 <Paper
                     className={classes.form}
@@ -84,6 +81,7 @@ export default function LoginPage() {
                         className={classes.title}
                         mt={50}
                         mb={50}
+                        weight={500}
                     >
                         Sign In to your account !
                     </Title>
@@ -133,11 +131,12 @@ export default function LoginPage() {
                         mt='md'
                         size='lg'
                         color='white'
+                        weight={500}
                     >
                         Don&apos;t have an account?{' '}
                         <Anchor
                             href='/register'
-                            weight={700}
+                            weight={500}
                         >
                             Register
                         </Anchor>
