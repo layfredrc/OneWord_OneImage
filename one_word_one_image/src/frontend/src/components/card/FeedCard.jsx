@@ -100,7 +100,10 @@ const FeedCard = ({ urlVideo }) => {
             <Divider mt={20} />
 
             <Group mt='sm'>
-                <ReactPlayer url={urlVideo} />
+                <ReactPlayer
+                    url={urlVideo}
+                    controls
+                />
             </Group>
 
             <Group

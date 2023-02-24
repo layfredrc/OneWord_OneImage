@@ -47,7 +47,7 @@ export default class FeedPage extends Component {
                             zIndex: 1,
                         }}
                     >
-                        <FeedCard urlVideo='https://www.youtube.com/watch?v=6ONRf7h3Mdk' />
+                        <FeedCard urlVideo='https://storage.googleapis.com/owoi_bucket/username/videos/headlines.webm' />
                         <FeedCard urlVideo='https://www.youtube.com/watch?v=kx7P_ENnDPE' />
                         <FeedCard urlVideo='https://www.youtube.com/watch?v=x9yop0nYR9g' />
                     </Stack>
