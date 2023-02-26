@@ -91,7 +91,7 @@ Follow this link to see the source code : [Github](https://github.com/layfredrc/
     $ python manage.py createsuperuser
         > Username: admin
         > Email address: admin@example.com
-        > Password: password
+        > Password: privatepassword
 
     # Launch the Django server
     $ python manage.py runserver
