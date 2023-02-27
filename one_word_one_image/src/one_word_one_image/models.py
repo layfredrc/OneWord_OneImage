@@ -12,18 +12,18 @@ class User(AbstractUser):
 
 class Clip(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null = True)
-    clip = models.FileField(upload_to = "clips")
+    clip = models.FileField(upload_to = "clips", null = True, blank = True)
     clip_name = models.CharField(max_length = 120)
-    clip_description = models.TextField()
-    clip_thumbnail = models.ImageField(upload_to = "clip_thumbnails", blank = True)
+    clip_description = models.TextField(null = True, blank=True)
+    clip_thumbnail = models.ImageField(upload_to = "clip_thumbnails", null = True, blank = True)
     clip_isPublic = models.BooleanField(default = False)
     clip_views = models.IntegerField(default = 0)
     clip_likes = models.IntegerField(default = 0)
-    clip_image_url = models.CharField(max_length = 500, blank = True)
+    clip_image_url = models.CharField(max_length = 500, null = True, blank = True)
     clip_url_aws = models.CharField(max_length = 500, blank = True)
-    clip_soundtrack_url = models.CharField(max_length = 500, blank = True)
+    clip_soundtrack_url = models.CharField(max_length = 500, null = True, blank = True)
     created_at = models.DateTimeField(auto_now_add = True)
-    updated_at = models.DateTimeField(auto_now = True)
+    updated_at = models.DateTimeField(auto_now = True, null = True, blank = True)
 
     def _str_(self):
         return self.clip_name

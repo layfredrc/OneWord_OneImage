@@ -1,5 +1,4 @@
 import json
-from django.shortcuts import render
 from rest_framework import viewsets, permissions
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.http.response import JsonResponse
@@ -38,6 +37,7 @@ class CommentView(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     permission_classes = [permissions.AllowAny]
 
+
 @api_view(['POST'])
 def create_clip(request):
     if request.method == 'POST':
@@ -45,7 +45,7 @@ def create_clip(request):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
 
-        video_name = body['video_name']
+        video_name = body['video_name'].replace(" ", "_")
         username = body['username']
         youtube_url = body['youtube_url']
         timestamp_start = body['timestamp_start']
@@ -57,6 +57,12 @@ def create_clip(request):
         clip_maker_factory = ClipMakerFactory(video_name, username, transcript, "owoi_bucket", "../tmp", video_name, with_subtitles=True)
         clip_maker_factory.clip_maker()
         upload_video_to_gcs("owoi_bucket", username, video_name, "../tmp/")
+
+        Clip.objects.create(
+            user=User.objects.get(username=username), 
+            clip_name=video_name.replace("_", " "), 
+            clip_url_aws=f"https://storage.googleapis.com/owoi_bucket/{username}/videos/{video_name}.webm"
+        ).save()
 
         return JsonResponse({'url': f'https://storage.googleapis.com/owoi_bucket/{username}/videos/{video_name}.webm', 'status': "status.HTTP_200_OK"})
     
