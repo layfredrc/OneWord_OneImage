@@ -1,9 +1,26 @@
-import React from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Group, Title, Grid } from '@mantine/core'
 import Nav from '../components/Nav'
 import ClipCard from '../components/card/ClipCard'
+import AuthContext from '../context/AuthContext'
 
 const ClipsPage = () => {
+    const [clips, setClips] = useState([])
+    let { user } = useContext(AuthContext)
+    const getClips = async () => {
+        const response = await fetch(`http://127.0.0.1:8000/api/clips/`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        })
+        const clips = await response.json()
+        setClips(clips)
+    }
+
+    useEffect(() => {
+        getClips()
+    }, [])
+
+    const userClips = clips.filter((clip) => clip.user === user.user_id)
     return (
         <div>
             <Nav />
@@ -33,60 +50,17 @@ const ClipsPage = () => {
                     justify='space-around'
                     gutter='xl'
                 >
-                    <Grid.Col
-                        md={6}
-                        lg={4}
-                    >
-                        <ClipCard
-                            title='Bande organisée'
-                            urlVideo='https://www.youtube.com/watch?v=-CVn3-3g_BI'
-                        />
-                    </Grid.Col>
-                    <Grid.Col
-                        md={6}
-                        lg={4}
-                    >
-                        <ClipCard
-                            title='667'
-                            urlVideo='https://www.youtube.com/watch?v=cgDZN44WpoE'
-                        />
-                    </Grid.Col>
-                    <Grid.Col
-                        md={6}
-                        lg={4}
-                    >
-                        <ClipCard
-                            title='Drill FR'
-                            urlVideo='https://www.youtube.com/watch?v=lbeUyW6axeA'
-                        />
-                    </Grid.Col>
-                    <Grid.Col
-                        md={6}
-                        lg={4}
-                    >
-                        <ClipCard
-                            title='Bande organisée'
-                            urlVideo='https://www.youtube.com/watch?v=-CVn3-3g_BI'
-                        />
-                    </Grid.Col>
-                    <Grid.Col
-                        md={6}
-                        lg={4}
-                    >
-                        <ClipCard
-                            title='667'
-                            urlVideo='https://www.youtube.com/watch?v=cgDZN44WpoE'
-                        />
-                    </Grid.Col>
-                    <Grid.Col
-                        md={6}
-                        lg={4}
-                    >
-                        <ClipCard
-                            title='Drill FR'
-                            urlVideo='https://www.youtube.com/watch?v=lbeUyW6axeA'
-                        />
-                    </Grid.Col>
+                    {userClips.map((clip) => (
+                        <Grid.Col
+                            md={6}
+                            lg={4}
+                        >
+                            <ClipCard
+                                title={clip.clip_name}
+                                urlVideo={clip.clip_url_aws}
+                            />
+                        </Grid.Col>
+                    ))}
                 </Grid>
             </Group>
         </div>

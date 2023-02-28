@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Nav from '../components/Nav'
 import {
     Stack,
@@ -6,11 +6,11 @@ import {
     Title,
     ActionIcon,
     Stepper,
-    Button,
     Input,
     Loader,
+    LoadingOverlay,
 } from '@mantine/core'
-import CreateCard from '../components/card/CreateCard'
+import FeedCard from '../components/card/FeedCard'
 import ChooseCard from '../components/card/ChooseCard'
 import styled from 'styled-components'
 import InputFileCard from '../components/card/InputFileCard'
@@ -23,64 +23,59 @@ import {
 import FooterLinks from '../components/FooterLinks'
 import GradientButton from '../components/button/GradientButton'
 import BannerCard from '../components/card/BannerCard'
+import AuthContext from '../context/AuthContext'
+import { Link } from 'react-router-dom'
 
 const musicMetadata = require('music-metadata-browser')
-export default class CreatePage extends Component {
-    constructor(props) {
-        super(props)
+const CreatePage = () => {
+    const [active, setActive] = useState(0)
+    const [highestStepVisited, setHighestStepVisited] = useState(active)
+    const [youTubeIsClicked, setYouTubeIsClicked] = useState(false)
+    const [OWOIAI, setOWOIAI] = useState(false)
+    const [selectedFile, setSelectedFile] = useState(null)
+    const [selectedFileCover, setSelectedFileCover] = useState(null)
+    const [selectedFileTitle, setSelectedFileTitle] = useState(null)
+    const [selectedFileArtist, setSelectedFileArtist] = useState(null)
+    const [youtubeUrl, setYoutubeUrl] = useState(null)
+    const [youtubeStartTimestamp, setYoutubeStartTimestamp] = useState(null)
+    const [youtubeEndTimestamp, setYoutubeEndTimestamp] = useState(null)
+    const [clipTitle, setClipTitle] = useState(null)
+    const [clipUrl, setClipUrl] = useState(null)
+    const [overlay, setOverlay] = useState(false)
+    const [profilePicture, setProfilePicture] = useState(null)
+    const { user } = useContext(AuthContext)
+    console.log(user)
 
-        this.state = {
-            isLogged: true,
-            active: 0,
-            highestStepVisited: this.active,
-            youTubeIsClicked: false,
-            OWOIAI: false,
-            selectedFile: null,
-            selectedFileCover: null,
-            selectedFileTitle: null,
-            selectedFileArtist: null,
-            youtubeUrl: null,
-            youtubeStartTimestamp: null,
-            youtubeEndTimestamp: null,
-            clipTitle: null,
-        }
-    }
+    useEffect(() => {
+        getProfilePicture()
+    }, [])
 
-    handleStepChange = (nextStep) => {
+    const handleStepChange = (nextStep) => {
         const isOutOfBounds = nextStep > 3 || nextStep < 0
 
         if (isOutOfBounds) {
             return
         }
 
-        this.setState({
-            active: nextStep,
-            highestStepVisited: Math.max(
-                nextStep,
-                this.state.highestStepVisited
-            ),
-        })
+        setActive(nextStep)
+        setHighestStepVisited(Math.max(nextStep, highestStepVisited))
     }
 
     // Allow the user to freely go back and forth between visited steps.
-    shouldAllowSelectStep = (step) =>
-        this.state.highestStepVisited >= step && this.state.active !== step
+    const shouldAllowSelectStep = (step) =>
+        highestStepVisited >= step && active !== step
 
-    handleYouTubeIsClicked = () => {
-        this.setState({
-            youTubeIsClicked: true,
-            OWOIAI: false,
-        })
+    const handleYouTubeIsClicked = () => {
+        setOWOIAI(false)
+        setYouTubeIsClicked(true)
     }
 
-    handleOWOIAIClick = () => {
-        this.setState({
-            youTubeIsClicked: false,
-            OWOIAI: true,
-        })
+    const handleOWOIAIClick = () => {
+        setOWOIAI(true)
+        setYouTubeIsClicked(false)
     }
 
-    handleOnDrop = async (acceptedFiles) => {
+    const handleOnDrop = async (acceptedFiles) => {
         // Update the selectedFile state with the accepted file
         console.log(acceptedFiles[0])
 
@@ -98,149 +93,211 @@ export default class CreatePage extends Component {
         const artist = metadata.common.artist
         const title = metadata.common.title
 
-        this.setState({
-            selectedFile: acceptedFiles[0],
-            selectedFileCover: coverFormated,
-            selectedFileTitle: title,
-            selectedFileArtist: artist,
-        })
+        setSelectedFile(acceptedFiles[0])
+        setSelectedFileCover(coverFormated)
+        setSelectedFileTitle(title)
+        setSelectedFileArtist(artist)
     }
 
-    handleYoutubeUrlChange = (event) => {
+    const handleYoutubeUrlChange = (event) => {
         // Update the state youtubeUrl on input value change
-
-        this.setState({
-            youtubeUrl: event.target.value,
-        })
+        setYoutubeUrl(event.target.value)
     }
 
-    handleYoutubeStartTimestampChange = (event) => {
+    const handleYoutubeStartTimestampChange = (event) => {
         // set the state startTimestamp on input value change
-        this.setState({
-            youtubeStartTimestamp: event.target.value,
-        })
+        setYoutubeStartTimestamp(event.target.value)
     }
-    handleYoutubeEndTimestampChange = (event) => {
+    const handleYoutubeEndTimestampChange = (event) => {
         // set the state endTimestamp on input value change
-        this.setState({
-            youtubeEndTimestamp: event.target.value,
-        })
+        setYoutubeEndTimestamp(event.target.value)
     }
 
-    handleClipTitleChange = (event) => {
-        this.setState({
-            clipTitle: event.target.value,
-        })
+    const handleClipTitleChange = (event) => {
+        setClipTitle(event.target.value)
     }
 
-    render() {
-        const {
-            youTubeIsClicked,
-            OWOIAI,
-            selectedFile,
-            selectedFileArtist,
-            selectedFileCover,
-            selectedFileTitle,
-            youtubeEndTimestamp,
-            youtubeStartTimestamp,
-            youtubeUrl,
-            clipTitle,
-        } = this.state
+    const handleOnSubmit = async (event) => {
+        event.preventDefault()
+        console.log('username', user.username)
+        console.log('submit')
+        setOverlay(true)
+        const response = await fetch('http://127.0.0.1:8000/api/clip/new/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: user.username,
+                video_name: clipTitle,
+                youtube_url: youtubeUrl,
+                timestamp_start: youtubeStartTimestamp,
+                timestamp_end: youtubeEndTimestamp,
+            }),
+        })
+        const data = await response.json()
+        console.log('data', data)
+        console.log('response', response)
 
-        return (
-            <div>
-                <Nav />
-                <CreateWrapper>
-                    <Stack
-                        direction='column'
-                        spacing='xl'
+        if (response.status === 200) {
+            console.log('success')
+            setOverlay(false)
+            setClipUrl(data.url)
+            handleStepChange(active + 1)
+        } else {
+            console.log('error')
+        }
+    }
+
+    const getProfilePicture = async () => {
+        console.log(user.user_id)
+        const response = await fetch(
+            `http://127.0.0.1:8000/api/users/${user.user_id}/`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+        )
+
+        const data = await response.json()
+        console.log('profilePicture', data)
+        setProfilePicture(data.profile_picture)
+    }
+
+    return (
+        <div>
+            <Nav />
+            <CreateWrapper>
+                <Stack
+                    direction='column'
+                    spacing='xl'
+                >
+                    <Stepper
+                        px={200}
+                        my={50}
+                        active={active}
+                        onStepClick={handleStepChange}
+                        breakpoint='sm'
+                        size='lg'
                     >
-                        <Stepper
-                            px={200}
-                            my={50}
-                            active={this.state.active}
-                            onStepClick={this.handleStepChange}
-                            breakpoint='sm'
-                            size='lg'
+                        <Stepper.Step
+                            label='First step'
+                            description='How to import your song ?'
+                            allowStepSelect={shouldAllowSelectStep(0)}
                         >
-                            <Stepper.Step
-                                label='First step'
-                                description='How to import your song ?'
-                                allowStepSelect={this.shouldAllowSelectStep(0)}
+                            <Group
+                                position='center'
+                                mt={50}
                             >
-                                <Group
-                                    position='center'
-                                    mt={50}
+                                <Title
+                                    style={{ fontFamily: 'Gilroy' }}
+                                    color='white'
+                                    weight={500}
                                 >
-                                    <Title
-                                        style={{ fontFamily: 'Gilroy' }}
-                                        color='white'
-                                        weight={500}
-                                    >
-                                        Choose with what method you will import
-                                        your song !
-                                    </Title>
-                                </Group>
+                                    Choose with what method you will import your
+                                    song !
+                                </Title>
+                            </Group>
 
-                                <Group
-                                    position='center'
+                            <Group
+                                position='center'
+                                spacing='xl'
+                            >
+                                <ChooseCard
+                                    youTubeIsClicked={youTubeIsClicked}
+                                    OWOIAI={OWOIAI}
+                                    handleOWOIAIClick={handleOWOIAIClick}
+                                    handleYouTubeClick={handleYouTubeIsClicked}
+                                />
+                            </Group>
+
+                            <Group
+                                position='center'
+                                mb='xl'
+                            >
+                                <GradientButton
+                                    gradientColor='linear-gradient(93.96deg, #4F73C3 0%, #3C46A2 100%);'
+                                    size='xl'
+                                    radius='md'
+                                    disabled={!OWOIAI && !youTubeIsClicked}
+                                    onClick={() => handleStepChange(active + 1)}
+                                >
+                                    Next Step
+                                    <ActionIcon>
+                                        <IconArrowRight
+                                            color={
+                                                !OWOIAI && !youTubeIsClicked
+                                                    ? 'transparent'
+                                                    : 'white'
+                                            }
+                                        />
+                                    </ActionIcon>
+                                </GradientButton>
+                            </Group>
+                        </Stepper.Step>
+                        <Stepper.Step
+                            label='Second step'
+                            description='Import audio file'
+                            allowStepSelect={shouldAllowSelectStep(1)}
+                        >
+                            <Group
+                                position='center'
+                                mt={50}
+                                my={100}
+                            >
+                                <Stack
+                                    direction='column'
                                     spacing='xl'
                                 >
-                                    <ChooseCard
-                                        youTubeIsClicked={youTubeIsClicked}
-                                        OWOIAI={OWOIAI}
-                                        handleOWOIAIClick={
-                                            this.handleOWOIAIClick
-                                        }
-                                        handleYouTubeClick={
-                                            this.handleYouTubeIsClicked
-                                        }
-                                    />
-                                </Group>
+                                    {youTubeIsClicked && (
+                                        <form
+                                            onSubmit={handleOnSubmit}
+                                            style={{
+                                                position: 'relative',
+                                            }}
+                                        >
+                                            <LoadingOverlay
+                                                visible={overlay}
+                                                overlayBlur={6}
+                                                exitTransitionDuration={1000}
+                                                transitionDuration={1000}
+                                                radius='lg'
+                                                loader={
+                                                    <Group
+                                                        position='center'
+                                                        my={100}
+                                                    >
+                                                        <Stack
+                                                            align='center'
+                                                            spacing='xl'
+                                                            justify='center'
+                                                        >
+                                                            <Loader
+                                                                color='indigo'
+                                                                size='xl'
+                                                                variant='bars'
+                                                            />
 
-                                <Group
-                                    position='center'
-                                    mb='xl'
-                                >
-                                    <GradientButton
-                                        gradientColor='linear-gradient(93.96deg, #4F73C3 0%, #3C46A2 100%);'
-                                        size='xl'
-                                        radius='md'
-                                        disabled={!OWOIAI && !youTubeIsClicked}
-                                        onClick={() =>
-                                            this.handleStepChange(
-                                                this.state.active + 1
-                                            )
-                                        }
-                                    >
-                                        Next Step
-                                        <ActionIcon>
-                                            <IconArrowRight
-                                                color={
-                                                    !OWOIAI && !youTubeIsClicked
-                                                        ? 'transparent'
-                                                        : 'white'
+                                                            <Title
+                                                                align='center'
+                                                                px={50}
+                                                                order={2}
+                                                                style={{
+                                                                    fontFamily:
+                                                                        'Gilroy',
+                                                                }}
+                                                            >
+                                                                Generation of
+                                                                your clip,
+                                                                please wait up
+                                                                to 2 minutes
+                                                            </Title>
+                                                        </Stack>
+                                                    </Group>
                                                 }
                                             />
-                                        </ActionIcon>
-                                    </GradientButton>
-                                </Group>
-                            </Stepper.Step>
-                            <Stepper.Step
-                                label='Second step'
-                                description='Import audio file'
-                                allowStepSelect={this.shouldAllowSelectStep(1)}
-                            >
-                                <Group
-                                    position='center'
-                                    mt={50}
-                                    my={100}
-                                >
-                                    <Stack
-                                        direction='column'
-                                        spacing='xl'
-                                    >
-                                        {youTubeIsClicked && (
                                             <Stack
                                                 spacing='xl'
                                                 justify='space-around'
@@ -261,8 +318,7 @@ export default class CreatePage extends Component {
                                                 <Input
                                                     size='xl'
                                                     onChange={
-                                                        this
-                                                            .handleYoutubeUrlChange
+                                                        handleYoutubeUrlChange
                                                     }
                                                     styles={{
                                                         input: {
@@ -291,8 +347,7 @@ export default class CreatePage extends Component {
                                                         <Input
                                                             size='xl'
                                                             onChange={
-                                                                this
-                                                                    .handleYoutubeStartTimestampChange
+                                                                handleYoutubeStartTimestampChange
                                                             }
                                                             styles={{
                                                                 input: {
@@ -321,8 +376,7 @@ export default class CreatePage extends Component {
                                                         <Input
                                                             size='xl'
                                                             onChange={
-                                                                this
-                                                                    .handleYoutubeEndTimestampChange
+                                                                handleYoutubeEndTimestampChange
                                                             }
                                                             styles={{
                                                                 input: {
@@ -349,8 +403,7 @@ export default class CreatePage extends Component {
                                                 <Input
                                                     size='xl'
                                                     onChange={
-                                                        this
-                                                            .handleClipTitleChange
+                                                        handleClipTitleChange
                                                     }
                                                     styles={{
                                                         input: {
@@ -370,9 +423,8 @@ export default class CreatePage extends Component {
                                                         size='xl'
                                                         radius='md'
                                                         onClick={() =>
-                                                            this.handleStepChange(
-                                                                this.state
-                                                                    .active - 1
+                                                            handleStepChange(
+                                                                active - 1
                                                             )
                                                         }
                                                     >
@@ -388,14 +440,15 @@ export default class CreatePage extends Component {
                                                         disabled={
                                                             !youtubeUrl ||
                                                             !youtubeStartTimestamp ||
-                                                            !youtubeEndTimestamp
+                                                            !youtubeEndTimestamp ||
+                                                            !clipTitle
                                                         }
-                                                        onClick={() =>
-                                                            this.handleStepChange(
-                                                                this.state
-                                                                    .active + 1
-                                                            )
-                                                        }
+                                                        // onClick={() =>
+                                                        //     handleStepChange(
+                                                        //         active + 1
+                                                        //     )
+                                                        // }
+                                                        type='submit'
                                                     >
                                                         Next Step
                                                         <ActionIcon>
@@ -412,243 +465,227 @@ export default class CreatePage extends Component {
                                                     </GradientButton>
                                                 </Group>
                                             </Stack>
-                                        )}
-                                    </Stack>
-                                </Group>
+                                        </form>
+                                    )}
+                                </Stack>
+                            </Group>
 
-                                {OWOIAI && (
-                                    <>
-                                        <Group
-                                            position='center'
-                                            mt={50}
+                            {OWOIAI && (
+                                <>
+                                    <Group
+                                        position='center'
+                                        mt={50}
+                                    >
+                                        <Title
+                                            style={{ fontFamily: 'Gilroy' }}
+                                            color='white'
+                                            weight={500}
                                         >
-                                            <Title
-                                                style={{ fontFamily: 'Gilroy' }}
-                                                color='white'
-                                                weight={500}
-                                            >
-                                                What song will you use for your
-                                                new clip ?
-                                            </Title>
-                                        </Group>
+                                            What song will you use for your new
+                                            clip ?
+                                        </Title>
+                                    </Group>
 
-                                        <Group
-                                            position='center'
+                                    <Group
+                                        position='center'
+                                        spacing='xl'
+                                    >
+                                        <InputFileCard
+                                            selectedFile={selectedFile}
+                                            selectedFileArtist={
+                                                selectedFileArtist
+                                            }
+                                            selectedFileCover={
+                                                selectedFileCover
+                                            }
+                                            selectedFileTitle={
+                                                selectedFileTitle
+                                            }
+                                            onDrop={handleOnDrop}
+                                        />
+                                    </Group>
+
+                                    <Group
+                                        position='center'
+                                        my={100}
+                                    >
+                                        <Stack
+                                            direction='column'
                                             spacing='xl'
                                         >
-                                            <InputFileCard
-                                                selectedFile={selectedFile}
-                                                selectedFileArtist={
-                                                    selectedFileArtist
-                                                }
-                                                selectedFileCover={
-                                                    selectedFileCover
-                                                }
-                                                selectedFileTitle={
-                                                    selectedFileTitle
-                                                }
-                                                onDrop={this.handleOnDrop}
+                                            <Title
+                                                color='white'
+                                                weight={500}
+                                                style={{
+                                                    textDecoration: 'none',
+                                                    fontFamily: 'Gilroy',
+                                                }}
+                                            >
+                                                Enter a title for your Clip
+                                            </Title>
+                                            <Input
+                                                size='xl'
+                                                styles={{
+                                                    input: {
+                                                        backgroundColor:
+                                                            '#0C1E51',
+                                                        border: '1px solid #3672F8',
+                                                    },
+                                                }}
                                             />
-                                        </Group>
+                                        </Stack>
+                                    </Group>
 
-                                        <Group
-                                            position='center'
-                                            my={100}
+                                    <Group
+                                        position='center'
+                                        mb='xl'
+                                    >
+                                        <GradientButton
+                                            variant='default'
+                                            size='xl'
+                                            radius='md'
+                                            onClick={() =>
+                                                handleStepChange(active - 1)
+                                            }
                                         >
-                                            <Stack
-                                                direction='column'
-                                                spacing='xl'
-                                            >
-                                                <Title
-                                                    color='white'
-                                                    weight={500}
-                                                    style={{
-                                                        textDecoration: 'none',
-                                                        fontFamily: 'Gilroy',
-                                                    }}
-                                                >
-                                                    Enter a title for your Clip
-                                                </Title>
-                                                <Input
-                                                    size='xl'
-                                                    styles={{
-                                                        input: {
-                                                            backgroundColor:
-                                                                '#0C1E51',
-                                                            border: '1px solid #3672F8',
-                                                        },
-                                                    }}
+                                            <ActionIcon>
+                                                <IconArrowLeft color='white' />
+                                            </ActionIcon>
+                                            Previous Step
+                                        </GradientButton>
+                                        <GradientButton
+                                            gradientColor='linear-gradient(93.96deg, #4F73C3 0%, #3C46A2 100%);'
+                                            size='xl'
+                                            radius='md'
+                                            disabled={selectedFile === null}
+                                            onClick={() =>
+                                                handleStepChange(active + 1)
+                                            }
+                                        >
+                                            Next Step
+                                            <ActionIcon>
+                                                <IconArrowRight
+                                                    color={
+                                                        selectedFile === null
+                                                            ? 'transparent'
+                                                            : 'white'
+                                                    }
                                                 />
-                                            </Stack>
-                                        </Group>
-
-                                        <Group
-                                            position='center'
-                                            mb='xl'
-                                        >
-                                            <GradientButton
-                                                variant='default'
-                                                size='xl'
-                                                radius='md'
-                                                onClick={() =>
-                                                    this.handleStepChange(
-                                                        this.state.active - 1
-                                                    )
-                                                }
-                                            >
-                                                <ActionIcon>
-                                                    <IconArrowLeft color='white' />
-                                                </ActionIcon>
-                                                Previous Step
-                                            </GradientButton>
-                                            <GradientButton
-                                                gradientColor='linear-gradient(93.96deg, #4F73C3 0%, #3C46A2 100%);'
-                                                size='xl'
-                                                radius='md'
-                                                disabled={selectedFile === null}
-                                                onClick={() =>
-                                                    this.handleStepChange(
-                                                        this.state.active + 1
-                                                    )
-                                                }
-                                            >
-                                                Next Step
-                                                <ActionIcon>
-                                                    <IconArrowRight
-                                                        color={
-                                                            selectedFile ===
-                                                            null
-                                                                ? 'transparent'
-                                                                : 'white'
-                                                        }
-                                                    />
-                                                </ActionIcon>
-                                            </GradientButton>
-                                        </Group>
-                                    </>
-                                )}
-                            </Stepper.Step>
-                            <Stepper.Step
-                                label='Final step'
-                                description='Generate your clip'
-                                allowStepSelect={this.shouldAllowSelectStep(2)}
+                                            </ActionIcon>
+                                        </GradientButton>
+                                    </Group>
+                                </>
+                            )}
+                        </Stepper.Step>
+                        <Stepper.Step
+                            label='Final step'
+                            description='Generate your clip'
+                            allowStepSelect={shouldAllowSelectStep(2)}
+                        >
+                            <Group
+                                position='center'
+                                mt={50}
                             >
-                                <Group
-                                    position='center'
-                                    mt={50}
+                                <Title
+                                    style={{ fontFamily: 'Gilroy' }}
+                                    color='white'
                                 >
-                                    <Title
-                                        style={{ fontFamily: 'Gilroy' }}
-                                        color='white'
-                                    >
-                                        Generate your clip with our AI powered
-                                        technologies !
-                                    </Title>
-                                </Group>
+                                    Your clip has been successfully generated !
+                                </Title>
+                            </Group>
 
-                                <Group
-                                    position='center'
-                                    my={100}
+                            <Group
+                                position='center'
+                                my={100}
+                            >
+                                <IconCircleCheck
+                                    color='#3672F8'
+                                    size={150}
+                                />
+                            </Group>
+
+                            <Group
+                                position='center'
+                                mb='xl'
+                            >
+                                <GradientButton
+                                    variant='default'
+                                    size='xl'
+                                    radius='md'
+                                    onClick={() => handleStepChange(active - 1)}
                                 >
-                                    <Loader
-                                        color='indigo'
-                                        size='xl'
-                                        variant='oval'
-                                    />
-                                </Group>
+                                    <ActionIcon>
+                                        <IconArrowLeft color='white' />
+                                    </ActionIcon>
+                                    Previous Step
+                                </GradientButton>
 
-                                <Group
-                                    position='center'
-                                    mb='xl'
+                                <GradientButton
+                                    gradientColor='linear-gradient(93.96deg, #4F73C3 0%, #3C46A2 100%);'
+                                    size='xl'
+                                    radius='md'
+                                    onClick={() => handleStepChange(active + 1)}
                                 >
-                                    <GradientButton
-                                        variant='default'
-                                        size='xl'
-                                        radius='md'
-                                        onClick={() =>
-                                            this.handleStepChange(
-                                                this.state.active - 1
-                                            )
-                                        }
-                                    >
-                                        <ActionIcon>
-                                            <IconArrowLeft color='white' />
-                                        </ActionIcon>
-                                        Previous Step
-                                    </GradientButton>
+                                    Next Step
+                                    <ActionIcon>
+                                        <IconArrowRight color='white' />
+                                    </ActionIcon>
+                                </GradientButton>
+                            </Group>
+                        </Stepper.Step>
 
-                                    <GradientButton
-                                        gradientColor='linear-gradient(93.96deg, #4F73C3 0%, #3C46A2 100%);'
-                                        size='xl'
-                                        radius='md'
-                                        onClick={() =>
-                                            this.handleStepChange(
-                                                this.state.active + 1
-                                            )
-                                        }
-                                    >
-                                        Next Step
-                                        <ActionIcon>
-                                            <IconArrowRight color='white' />
-                                        </ActionIcon>
-                                    </GradientButton>
-                                </Group>
-                            </Stepper.Step>
-
-                            <Stepper.Completed>
-                                <Group
-                                    position='center'
-                                    mt={50}
+                        <Stepper.Completed>
+                            <Group
+                                position='center'
+                                mt={50}
+                            >
+                                <Title
+                                    style={{ fontFamily: 'Gilroy' }}
+                                    color='white'
                                 >
-                                    <Title
-                                        style={{ fontFamily: 'Gilroy' }}
-                                        color='white'
-                                    >
-                                        Your clip has been successfully
-                                        generated !
-                                    </Title>
-                                </Group>
+                                    Your clip has been successfully generated !
+                                </Title>
+                            </Group>
 
-                                <Group
-                                    position='center'
-                                    my={100}
-                                >
-                                    <IconCircleCheck
-                                        color='#3672F8'
-                                        size={150}
-                                    />
-                                </Group>
+                            <Group position='center'>
+                                <FeedCard
+                                    urlVideo={clipUrl}
+                                    username={user.username}
+                                    profilePicture={profilePicture}
+                                />
+                            </Group>
 
-                                <Group
-                                    position='center'
-                                    mb='xl'
-                                >
+                            <Group
+                                position='center'
+                                mb='xl'
+                            >
+                                <Link to='/clips'>
                                     <GradientButton
                                         gradientColor='linear-gradient(93.96deg, #4F73C3 0%, #3C46A2 100%);'
                                         size='xl'
                                         radius='md'
                                         disabled={false}
                                         onClick={() =>
-                                            this.handleStepChange(
-                                                this.state.active + 1
-                                            )
+                                            handleStepChange(active + 1)
                                         }
                                     >
-                                        Watch it
+                                        My Clips
                                         <ActionIcon ml={5}>
                                             <IconEye color='white' />
                                         </ActionIcon>
                                     </GradientButton>
-                                </Group>
-                            </Stepper.Completed>
-                        </Stepper>
-                    </Stack>
-                </CreateWrapper>
-                <FooterLinks />
-            </div>
-        )
-    }
+                                </Link>
+                            </Group>
+                        </Stepper.Completed>
+                    </Stepper>
+                </Stack>
+            </CreateWrapper>
+            <FooterLinks />
+        </div>
+    )
 }
+
+export default CreatePage
 
 const CreateWrapper = styled.div`
     position: relative;

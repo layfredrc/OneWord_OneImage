@@ -1,76 +1,95 @@
-@import url("https://fonts.googleapis.com/css2?family=Spline+Sans+Mono:wght@400;500;600;700&family=Spline+Sans:wght@400;500;600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Spline+Sans+Mono:wght@400;500;600;700&family=Spline+Sans:wght@400;500;600&display=swap');
 
 @font-face {
-	font-family: "Gilroy";
-	src: local("Gilroy Regular"), local("Gilroy-Regular"),
-		url("./assets/fonts/Gilroy-Regular.woff2") format("woff2");
-	font-weight: normal;
-	font-style: normal;
+    font-family: 'Gilroy';
+    src: local('Gilroy Regular'), local('Gilroy-Regular'),
+        url('./assets/fonts/Gilroy-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
 @font-face {
-	font-family: "Gilroy";
-	src: local("Gilroy Semibold"), local("Gilroy-Semibold"),
-		url("./assets/fonts/Gilroy-Semibold.woff2") format("woff2");
-	font-weight: normal;
-	font-style: normal;
+    font-family: 'Gilroy';
+    src: local('Gilroy Semibold'), local('Gilroy-Semibold'),
+        url('./assets/fonts/Gilroy-Semibold.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
 @font-face {
-	font-family: "Gilroy";
-	src: local("Gilroy Medium"), local("Gilroy-Medium"),
-		url("./assets/fonts/Gilroy-Medium.woff2") format("woff2");
-	font-weight: normal;
-	font-style: normal;
+    font-family: 'Gilroy';
+    src: local('Gilroy Medium'), local('Gilroy-Medium'),
+        url('./assets/fonts/Gilroy-Medium.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
 @font-face {
-	font-family: "Gilroy";
-	src: local("Gilroy Bold"), local("Gilroy-Bold"),
-		url("./assets/fonts/Gilroy-Bold.woff2") format("woff2");
-	font-weight: normal;
-	font-style: normal;
+    font-family: 'Gilroy';
+    src: local('Gilroy Bold'), local('Gilroy-Bold'),
+        url('./assets/fonts/Gilroy-Bold.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
 
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-	font-family: "Spline Sans", sans-serif;
-	font-size: 16px;
-	line-height: 1.5;
+    font-family: 'Spline Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
 }
 
 h1 {
-	font-family: "Spline Sans Mono", monospace;
-	font-size: 2em;
-	font-weight: 600;
-	line-height: 1.5;
+    font-family: 'Spline Sans Mono', monospace;
+    font-size: 2em;
+    font-weight: 600;
+    line-height: 1.5;
 }
 
 a {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 a:hover {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 a:active {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 a:visited {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 a:focus {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 html,
 body,
 #root {
-	height: 100%;
-	background: #0e1129;
+    height: 100%;
+    background: #0e1129;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #98c5e5;
+}
+
+*::-webkit-scrollbar {
+    width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #4375ff;
+    border-radius: 50px;
+    border: transparent;
 }

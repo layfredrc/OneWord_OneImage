@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Nav from '../components/Nav'
 import { Stack, Group, Title } from '@mantine/core'
 
@@ -7,56 +7,70 @@ import Logo from '../assets/images/logo.svg'
 
 import FeedCard from '../components/card/FeedCard'
 import FooterLinks from '../components/FooterLinks'
+import AuthContext from '../context/AuthContext'
 
-export default class FeedPage extends Component {
-    constructor(props) {
-        super(props)
+const FeedPage = () => {
+    const [clips, setClips] = useState([])
+    let { user } = useContext(AuthContext)
 
-        this.state = {
-            isLogged: true,
-        }
+    const getClips = async () => {
+        const response = await fetch(`http://127.0.0.1:8000/api/clips/`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        })
+        const clips = await response.json()
+        setClips(clips)
     }
 
-    render() {
-        return (
-            <div>
-                <Nav />
-                <Group
-                    position='center'
-                    mt={50}
+    useEffect(() => {
+        getClips()
+    }, [])
+
+    return (
+        <div>
+            <Nav />
+            <Group
+                position='center'
+                mt={50}
+            >
+                <img
+                    src={Logo}
+                    alt='Logo'
+                />
+                <Title
+                    style={{ fontFamily: 'Gilroy' }}
+                    color='white'
+                    weight={500}
                 >
-                    <img
-                        src={Logo}
-                        alt='Logo'
-                    />
-                    <Title
-                        style={{ fontFamily: 'Gilroy' }}
-                        color='white'
-                        weight={500}
-                    >
-                        OneWordOneImage
-                    </Title>
-                </Group>
-                <FeedWrapper>
-                    <Stack
-                        justify='apart'
-                        align='center'
-                        spacing='xl'
-                        style={{
-                            position: 'relative',
-                            zIndex: 1,
-                        }}
-                    >
-                        <FeedCard urlVideo='https://storage.googleapis.com/owoi_bucket/username/videos/headlines.webm' />
-                        <FeedCard urlVideo='https://www.youtube.com/watch?v=kx7P_ENnDPE' />
-                        <FeedCard urlVideo='https://www.youtube.com/watch?v=x9yop0nYR9g' />
-                    </Stack>
-                </FeedWrapper>
-                <FooterLinks />
-            </div>
-        )
-    }
+                    OneWordOneImage
+                </Title>
+            </Group>
+            <FeedWrapper>
+                <Stack
+                    justify='apart'
+                    align='center'
+                    spacing='xl'
+                    style={{
+                        position: 'relative',
+                        zIndex: 1,
+                    }}
+                >
+                    {clips.map((clip) => (
+                        <FeedCard
+                            username={user.username}
+                            urlVideo={clip.clip_url_aws}
+                            profilePicture={user.profile_picture}
+                            videoTitle={clip.clip_name}
+                        />
+                    ))}
+                </Stack>
+            </FeedWrapper>
+            <FooterLinks />
+        </div>
+    )
 }
+
+export default FeedPage
 
 const FeedWrapper = styled.div`
     position: relative;

@@ -22,6 +22,7 @@ import {
 
 import styled from 'styled-components'
 import ReactPlayer from 'react-player'
+import pp from '../../assets/images/profilePicture.png'
 
 const useStyles = createStyles((theme) => ({
     card: {
@@ -54,7 +55,7 @@ const useStyles = createStyles((theme) => ({
     },
 }))
 
-const FeedCard = ({ urlVideo }) => {
+const FeedCard = ({ urlVideo, username, profilePicture, videoTitle }) => {
     const { classes } = useStyles()
     return (
         <Paper
@@ -66,9 +67,9 @@ const FeedCard = ({ urlVideo }) => {
             <Group position='apart'>
                 <Avatar
                     radius='xl'
-                    src='https://collecter.apprentis-auteuil.org/cdn.iraiser.eu/YIbzhGkk9bX+EtoEinZHNhT8yHPg+ZyDbTkS0OGVfD4w3skiD2FTpVrBrqesA7Ua/Laetitia_Merciris/thumbnail/Logo-Efrei-2017-verticalwhite.png'
+                    src={profilePicture ? profilePicture : pp}
                 />
-                <Text weight={500}>efrei_paris</Text>
+                <Text weight={500}>{username ? username : 'efrei_paris'}</Text>
                 <Menu
                     withinPortal
                     position='bottom-end'
@@ -169,13 +170,13 @@ const FeedCard = ({ urlVideo }) => {
                         weight={500}
                         color='white'
                     >
-                        efrei_paris
+                        {username ? username : 'efrei_paris'}
                     </Text>
                     <Text
                         color='white'
                         weight='thin'
                     >
-                        Wei 2022.
+                        {videoTitle}
                     </Text>
                 </Group>
                 <Group position='apart'>

@@ -66,6 +66,7 @@ const ClipCard = ({ urlVideo, title }) => {
                 <ReactPlayer
                     url={urlVideo}
                     width={'100%'}
+                    controls
                 />
             </Group>
 
@@ -122,16 +123,22 @@ const ClipCard = ({ urlVideo, title }) => {
                 </Group>
             </Group>
 
-            <GradientButton
-                gradientColor='linear-gradient(117.03deg, #3672F8 0%, #B01EFF 100%)'
-                type='submit'
-                size='xl'
-                radius='md'
-                fullWidth
-                rightIcon={<IconDownload size={20} />}
+            <a
+                href={urlVideo}
+                target='_blank'
+                rel='noreferrer'
             >
-                Download
-            </GradientButton>
+                <GradientButton
+                    gradientColor='linear-gradient(117.03deg, #3672F8 0%, #B01EFF 100%)'
+                    type='submit'
+                    size='xl'
+                    radius='md'
+                    fullWidth
+                    rightIcon={<IconDownload size={20} />}
+                >
+                    Download
+                </GradientButton>
+            </a>
         </Paper>
     )
 }
