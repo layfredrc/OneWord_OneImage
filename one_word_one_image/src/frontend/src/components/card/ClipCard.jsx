@@ -2,13 +2,9 @@ import React from 'react'
 import {
     createStyles,
     Paper,
-    Text,
     Group,
-    Menu,
     ActionIcon,
-    Avatar,
     Divider,
-    Stack,
     Title,
 } from '@mantine/core'
 
@@ -38,7 +34,7 @@ const useStyles = createStyles((theme) => ({
     },
 }))
 
-const ClipCard = ({ urlVideo, title }) => {
+const ClipCard = ({ urlVideo, title, clip, comments }) => {
     const { classes } = useStyles()
     return (
         <Paper
@@ -90,7 +86,7 @@ const ClipCard = ({ urlVideo, title }) => {
                                     color='white'
                                 />
                             </ActionIcon>
-                            500
+                            {clip.clip_likes.toString()}
                         </Group>
                         <Group>
                             <ActionIcon>
@@ -99,7 +95,7 @@ const ClipCard = ({ urlVideo, title }) => {
                                     color='white'
                                 />
                             </ActionIcon>
-                            34
+                            {comments.length.toString()}
                         </Group>
                         <Group>
                             <ActionIcon>

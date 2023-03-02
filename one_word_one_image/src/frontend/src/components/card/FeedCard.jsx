@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     createStyles,
     Paper,
@@ -9,6 +9,8 @@ import {
     Avatar,
     Divider,
     Stack,
+    Modal,
+    Input,
 } from '@mantine/core'
 import {
     IconDots,
@@ -23,6 +25,8 @@ import {
 import styled from 'styled-components'
 import ReactPlayer from 'react-player'
 import pp from '../../assets/images/profilePicture.png'
+import GradientButton from '../button/GradientButton'
+import { CommentsList } from './CommentsList'
 
 const useStyles = createStyles((theme) => ({
     card: {
@@ -55,8 +59,76 @@ const useStyles = createStyles((theme) => ({
     },
 }))
 
-const FeedCard = ({ urlVideo, username, profilePicture, videoTitle }) => {
+const FeedCard = ({
+    urlVideo,
+    username,
+    profilePicture,
+    videoTitle,
+    views,
+    likes,
+    comments,
+    userId,
+    clipId,
+    users,
+}) => {
     const { classes } = useStyles()
+    const [isLiked, setIsLiked] = useState(false)
+    const [clipLikes, setClipLikes] = useState(likes)
+    console.log('comments', comments)
+    const [commentsList, setCommentList] = useState(comments)
+    const [newestComment, setNewestComment] = useState('')
+    const [opened, setOpened] = useState(false)
+    const [inputComment, setInputComment] = useState('')
+
+    const getNewestComment = () => {
+        if (commentsList) {
+            const lastComment = commentsList[commentsList.length - 1]
+            setNewestComment(lastComment)
+        }
+    }
+
+    const getUsername = (userCommentId) => {
+        const user = users.find((user) => user.id === userCommentId)
+        return user.username
+    }
+
+    const handleInputComment = (e) => {
+        setInputComment(e.target.value)
+    }
+
+    const handleSubmitComment = async (event) => {
+        event.preventDefault()
+        const response = await fetch('http://127.0.0.1:8000/api/comments/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                clip: clipId,
+                user: userId,
+                comment: inputComment,
+            }),
+        })
+        const data = await response.json()
+        console.log('data', data)
+        console.log('response', response)
+
+        if (response.status === 201) {
+            console.log('success', commentsList)
+            setCommentList([...commentsList, data])
+        } else {
+            console.log('error')
+        }
+    }
+
+    const handleLike = async () => {
+        const response = await fetch
+    }
+
+    useEffect(() => {
+        getNewestComment()
+    }, [commentsList])
+
     return (
         <Paper
             withBorder
@@ -64,6 +136,50 @@ const FeedCard = ({ urlVideo, username, profilePicture, videoTitle }) => {
             className={classes.card}
             p={20}
         >
+            <Modal
+                opened={opened}
+                onClose={() => setOpened(false)}
+                title='Comments'
+                centered
+                closeOnClickOutside
+                closeOnEscape
+                overlayBlur={2}
+                size={600}
+                transition={opened ? 'slide-down' : 'slide-up'}
+                transitionDuration={300}
+            >
+                <Stack
+                    p='md'
+                    align='flex-start'
+                    justify='center'
+                    spacing='xl'
+                >
+                    <CommentsList
+                        commentsList={commentsList}
+                        getUsername={getUsername}
+                    />
+                    <Group
+                        position='apart'
+                        my={20}
+                    >
+                        <Input
+                            size='md'
+                            placeholder='Write a comment...'
+                            onChange={handleInputComment}
+                        />
+                        <GradientButton
+                            gradientColor='linear-gradient(117.03deg, #3672F8 0%, #B01EFF 100%)'
+                            type='submit'
+                            size='md'
+                            radius='md'
+                            rightIcon={<IconSend size={20} />}
+                            onClick={handleSubmitComment}
+                        >
+                            Send
+                        </GradientButton>
+                    </Group>
+                </Stack>
+            </Modal>
             <Group position='apart'>
                 <Avatar
                     radius='xl'
@@ -121,22 +237,31 @@ const FeedCard = ({ urlVideo, username, profilePicture, videoTitle }) => {
                         spacing='lg'
                     >
                         <Group>
-                            <ActionIcon>
-                                <IconHeart
-                                    size={35}
-                                    color='white'
-                                />
+                            <ActionIcon onClick={() => setIsLiked(!isLiked)}>
+                                {isLiked ? (
+                                    <IconHeart
+                                        size={35}
+                                        color='red'
+                                    />
+                                ) : (
+                                    <IconHeart
+                                        size={35}
+                                        color='white'
+                                    />
+                                )}
                             </ActionIcon>
-                            500
+                            {clipLikes && isLiked
+                                ? (clipLikes + 1).toString()
+                                : clipLikes.toString()}
                         </Group>
-                        <Group>
+                        <Group onClick={() => setOpened(true)}>
                             <ActionIcon>
                                 <IconMessageCircle2
                                     size={35}
                                     color='white'
                                 />
                             </ActionIcon>
-                            34
+                            {commentsList.length}
                         </Group>
                         <Group>
                             <ActionIcon>
@@ -156,7 +281,7 @@ const FeedCard = ({ urlVideo, username, profilePicture, videoTitle }) => {
                             color='white'
                         />
                     </ActionIcon>
-                    1000 views
+                    {views.toString()} views
                 </Group>
             </Group>
 
@@ -183,22 +308,24 @@ const FeedCard = ({ urlVideo, username, profilePicture, videoTitle }) => {
                     <Text
                         weight={500}
                         color='dimmed'
+                        onClick={() => setOpened(true)}
                     >
-                        Show 34 comments
+                        Show {commentsList.length} comments
                     </Text>
                 </Group>
+
                 <Group position='apart'>
                     <Text
                         weight={500}
                         color='white'
                     >
-                        GMK
+                        {newestComment ? getUsername(newestComment.user) : ''}
                     </Text>
                     <Text
                         color='white'
                         weight='thin'
                     >
-                        Aberrant
+                        {newestComment ? newestComment.comment : ''}
                     </Text>
                 </Group>
             </Stack>

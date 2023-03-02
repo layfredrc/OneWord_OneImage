@@ -291,8 +291,8 @@ const CreatePage = () => {
                                                             >
                                                                 Generation of
                                                                 your clip,
-                                                                please wait up
-                                                                to 2 minutes
+                                                                please wait
+                                                                several minutes
                                                             </Title>
                                                         </Stack>
                                                     </Group>
@@ -316,6 +316,7 @@ const CreatePage = () => {
                                                     that you want to use
                                                 </Title>
                                                 <Input
+                                                    placeholder='https://www.youtube.com/watch?v='
                                                     size='xl'
                                                     onChange={
                                                         handleYoutubeUrlChange
@@ -345,6 +346,7 @@ const CreatePage = () => {
                                                             timestamp
                                                         </Title>
                                                         <Input
+                                                            placeholder='60'
                                                             size='xl'
                                                             onChange={
                                                                 handleYoutubeStartTimestampChange
@@ -374,6 +376,7 @@ const CreatePage = () => {
                                                             timestamp
                                                         </Title>
                                                         <Input
+                                                            placeholder='120'
                                                             size='xl'
                                                             onChange={
                                                                 handleYoutubeEndTimestampChange
@@ -401,6 +404,7 @@ const CreatePage = () => {
                                                     Enter the title of your Clip
                                                 </Title>
                                                 <Input
+                                                    placeholder='Title'
                                                     size='xl'
                                                     onChange={
                                                         handleClipTitleChange
@@ -652,6 +656,8 @@ const CreatePage = () => {
                                     urlVideo={clipUrl}
                                     username={user.username}
                                     profilePicture={profilePicture}
+                                    userId={user.id}
+                                    videoTitle={clipTitle}
                                 />
                             </Group>
 
