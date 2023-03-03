@@ -658,6 +658,10 @@ const CreatePage = () => {
                                     profilePicture={profilePicture}
                                     userId={user.id}
                                     videoTitle={clipTitle}
+                                    comments={[]}
+                                    likes={0}
+                                    views={0}
+                                    users={[]}
                                 />
                             </Group>
 

@@ -27,6 +27,17 @@ import ReactPlayer from 'react-player'
 import pp from '../../assets/images/profilePicture.png'
 import GradientButton from '../button/GradientButton'
 import { CommentsList } from './CommentsList'
+import IconHeartFilled from '../../assets/images/heart-filled.svg'
+import {
+    FacebookIcon,
+    TwitterIcon,
+    LinkedinIcon,
+    WhatsappIcon,
+    FacebookShareButton,
+    TwitterShareButton,
+    LinkedinShareButton,
+    WhatsappShareButton,
+} from 'react-share'
 
 const useStyles = createStyles((theme) => ({
     card: {
@@ -58,7 +69,6 @@ const useStyles = createStyles((theme) => ({
         zIndex: '0',
     },
 }))
-
 const FeedCard = ({
     urlVideo,
     username,
@@ -79,6 +89,15 @@ const FeedCard = ({
     const [newestComment, setNewestComment] = useState('')
     const [opened, setOpened] = useState(false)
     const [inputComment, setInputComment] = useState('')
+    const [socialModal, setSocialModal] = useState(false)
+    const [shareUrl, setShareUrl] = useState('')
+    const [shareTitle, setShareTitle] = useState('')
+
+    const openModal = () => {
+        setSocialModal(true)
+        setShareUrl(urlVideo) // Replace with the URL you want to share
+        setShareTitle(videoTitle) // Replace with the title you want to share
+    }
 
     const getNewestComment = () => {
         if (commentsList) {
@@ -121,8 +140,13 @@ const FeedCard = ({
         }
     }
 
-    const handleLike = async () => {
-        const response = await fetch
+    const handleLike = () => {
+        setIsLiked(!isLiked)
+        if (isLiked && clipLikes > 0) {
+            setClipLikes(clipLikes - 1)
+        } else {
+            setClipLikes(clipLikes + 1)
+        }
     }
 
     useEffect(() => {
@@ -179,6 +203,65 @@ const FeedCard = ({
                         </GradientButton>
                     </Group>
                 </Stack>
+            </Modal>
+            <Modal
+                opened={socialModal}
+                onClose={() => setSocialModal(false)}
+                title='Share this content'
+                centered
+                closeOnClickOutside
+                closeOnEscape
+                overlayBlur={2}
+                size={600}
+                transition={socialModal ? 'slide-down' : 'slide-up'}
+                transitionDuration={300}
+            >
+                <Group
+                    spacing={'xl'}
+                    position='center'
+                    mb={20}
+                >
+                    <FacebookShareButton
+                        url={shareUrl}
+                        title={shareTitle}
+                        style={{ display: 'flex', justifyContent: 'center' }}
+                    >
+                        <FacebookIcon
+                            size={50}
+                            round
+                        />
+                    </FacebookShareButton>
+                    <TwitterShareButton
+                        url={shareUrl}
+                        title={shareTitle}
+                        style={{ display: 'flex', justifyContent: 'center' }}
+                    >
+                        <TwitterIcon
+                            size={50}
+                            round
+                        />
+                    </TwitterShareButton>
+                    <LinkedinShareButton
+                        url={shareUrl}
+                        title={shareTitle}
+                        style={{ display: 'flex', justifyContent: 'center' }}
+                    >
+                        <LinkedinIcon
+                            size={50}
+                            round
+                        />
+                    </LinkedinShareButton>
+                    <WhatsappShareButton
+                        url={shareUrl}
+                        title={shareTitle}
+                        style={{ display: 'flex', justifyContent: 'center' }}
+                    >
+                        <WhatsappIcon
+                            size={50}
+                            round
+                        />
+                    </WhatsappShareButton>
+                </Group>
             </Modal>
             <Group position='apart'>
                 <Avatar
@@ -237,11 +320,14 @@ const FeedCard = ({
                         spacing='lg'
                     >
                         <Group>
-                            <ActionIcon onClick={() => setIsLiked(!isLiked)}>
+                            <ActionIcon onClick={handleLike}>
                                 {isLiked ? (
-                                    <IconHeart
+                                    <img
+                                        src={IconHeartFilled}
                                         size={35}
-                                        color='red'
+                                        fill='red'
+                                        style={{ fill: 'red', color: 'red' }}
+                                        alt='heart'
                                     />
                                 ) : (
                                     <IconHeart
@@ -250,9 +336,7 @@ const FeedCard = ({
                                     />
                                 )}
                             </ActionIcon>
-                            {clipLikes && isLiked
-                                ? (clipLikes + 1).toString()
-                                : clipLikes.toString()}
+                            {clipLikes.toString()}
                         </Group>
                         <Group onClick={() => setOpened(true)}>
                             <ActionIcon>
@@ -263,7 +347,7 @@ const FeedCard = ({
                             </ActionIcon>
                             {commentsList.length}
                         </Group>
-                        <Group>
+                        <Group onClick={openModal}>
                             <ActionIcon>
                                 <IconSend
                                     size={35}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
     createStyles,
     Paper,
@@ -6,6 +6,7 @@ import {
     ActionIcon,
     Divider,
     Title,
+    Modal,
 } from '@mantine/core'
 
 import {
@@ -18,6 +19,16 @@ import {
 
 import ReactPlayer from 'react-player'
 import GradientButton from '../button/GradientButton'
+import {
+    FacebookIcon,
+    TwitterIcon,
+    LinkedinIcon,
+    WhatsappIcon,
+    FacebookShareButton,
+    TwitterShareButton,
+    LinkedinShareButton,
+    WhatsappShareButton,
+} from 'react-share'
 
 const useStyles = createStyles((theme) => ({
     card: {
@@ -36,6 +47,15 @@ const useStyles = createStyles((theme) => ({
 
 const ClipCard = ({ urlVideo, title, clip, comments }) => {
     const { classes } = useStyles()
+    const [socialModal, setSocialModal] = useState(false)
+    const [shareUrl, setShareUrl] = useState('')
+    const [shareTitle, setShareTitle] = useState('')
+
+    const openModal = () => {
+        setSocialModal(true)
+        setShareUrl(urlVideo) // Replace with the URL you want to share
+        setShareTitle(title) // Replace with the title you want to share
+    }
     return (
         <Paper
             withBorder
@@ -43,6 +63,65 @@ const ClipCard = ({ urlVideo, title, clip, comments }) => {
             className={classes.card}
             p={20}
         >
+            <Modal
+                opened={socialModal}
+                onClose={() => setSocialModal(false)}
+                title='Share this content'
+                centered
+                closeOnClickOutside
+                closeOnEscape
+                overlayBlur={2}
+                size={600}
+                transition={socialModal ? 'slide-down' : 'slide-up'}
+                transitionDuration={300}
+            >
+                <Group
+                    spacing={'xl'}
+                    position='center'
+                    mb={20}
+                >
+                    <FacebookShareButton
+                        url={shareUrl}
+                        title={shareTitle}
+                        style={{ display: 'flex', justifyContent: 'center' }}
+                    >
+                        <FacebookIcon
+                            size={50}
+                            round
+                        />
+                    </FacebookShareButton>
+                    <TwitterShareButton
+                        url={shareUrl}
+                        title={shareTitle}
+                        style={{ display: 'flex', justifyContent: 'center' }}
+                    >
+                        <TwitterIcon
+                            size={50}
+                            round
+                        />
+                    </TwitterShareButton>
+                    <LinkedinShareButton
+                        url={shareUrl}
+                        title={shareTitle}
+                        style={{ display: 'flex', justifyContent: 'center' }}
+                    >
+                        <LinkedinIcon
+                            size={50}
+                            round
+                        />
+                    </LinkedinShareButton>
+                    <WhatsappShareButton
+                        url={shareUrl}
+                        title={shareTitle}
+                        style={{ display: 'flex', justifyContent: 'center' }}
+                    >
+                        <WhatsappIcon
+                            size={50}
+                            round
+                        />
+                    </WhatsappShareButton>
+                </Group>
+            </Modal>
             <Group position='center'>
                 <Title
                     style={{ fontFamily: 'Gilroy' }}
@@ -97,7 +176,7 @@ const ClipCard = ({ urlVideo, title, clip, comments }) => {
                             </ActionIcon>
                             {comments.length.toString()}
                         </Group>
-                        <Group>
+                        <Group onClick={openModal}>
                             <ActionIcon>
                                 <IconSend
                                     size={35}
