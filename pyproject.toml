@@ -1,21 +1,21 @@
 [tool.poetry]
-name = "OneWordOneImage"
+name = "one_word_one_image"
 version = "0.1.0"
 description = ""
 authors = ["imbadr <tadjer.badr@gmail.com>"]
 readme = "README.md"
-packages = [{include = "OneWordOneImage"}]
+packages = [{include = "one_word_one_image"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
 django = "^4.1.4"
 djangorestframework = "^3.14.0"
 django-cors-headers = "^3.13.0"
-psycopg2 = "^2.9.5"
 djangorestframework-simplejwt = "^5.2.2"
 pillow = "^9.4.0"
 owoi-audiotoclip = "^1.2.0"
 psycopg2-binary = "^2.9.5"
+psycopg2 = "^2.9.5"
 
 
 [build-system]

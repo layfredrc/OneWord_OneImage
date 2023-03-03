@@ -96,3 +96,10 @@ Follow this link to see the source code : [Github](https://github.com/layfredrc/
     # Launch the Django server
     $ python manage.py runserver
     ```
+
+6. Launch Docker image
+
+    ```sh
+    $ docker build -t owoi .
+    $ docker run -p 8000:8000 --name app -it owoi
+    ```
