@@ -92,7 +92,7 @@ const FeedCard = ({
     const [socialModal, setSocialModal] = useState(false)
     const [shareUrl, setShareUrl] = useState('')
     const [shareTitle, setShareTitle] = useState('')
-
+    const currentHost = `${window.location.protocol}//${window.location.hostname}`
     const openModal = () => {
         setSocialModal(true)
         setShareUrl(urlVideo) // Replace with the URL you want to share
@@ -117,7 +117,7 @@ const FeedCard = ({
 
     const handleSubmitComment = async (event) => {
         event.preventDefault()
-        const response = await fetch('http://127.0.0.1:8000/api/comments/', {
+        const response = await fetch(`${currentHost}:8000/api/comments/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

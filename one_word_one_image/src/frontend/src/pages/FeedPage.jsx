@@ -16,9 +16,9 @@ const FeedPage = () => {
 
     let { user } = useContext(AuthContext)
     console.log('user', user)
-
+    const currentHost = `${window.location.protocol}//${window.location.hostname}`
     const getClips = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/clips/`, {
+        const response = await fetch(`${currentHost}:8000/api/clips/`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         })
@@ -30,7 +30,7 @@ const FeedPage = () => {
     }
 
     const getComments = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/comments/`, {
+        const response = await fetch(`${currentHost}:8000/api/comments/`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         })
@@ -40,7 +40,7 @@ const FeedPage = () => {
     }
 
     const getUsers = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/users/`, {
+        const response = await fetch(`${currentHost}:8000/api/users/`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         })

@@ -44,6 +44,7 @@ const CreatePage = () => {
     const [overlay, setOverlay] = useState(false)
     const [profilePicture, setProfilePicture] = useState(null)
     const { user } = useContext(AuthContext)
+    const currentHost = `${window.location.protocol}//${window.location.hostname}`
     console.log(user)
 
     useEffect(() => {
@@ -122,7 +123,7 @@ const CreatePage = () => {
         console.log('username', user.username)
         console.log('submit')
         setOverlay(true)
-        const response = await fetch('http://127.0.0.1:8000/api/clip/new/', {
+        const response = await fetch(`${currentHost}:8000/api/clip/new`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -152,7 +153,7 @@ const CreatePage = () => {
     const getProfilePicture = async () => {
         console.log(user.user_id)
         const response = await fetch(
-            `http://127.0.0.1:8000/api/users/${user.user_id}/`,
+            `${currentHost}:8000/api/users/${user.user_id}/`,
             {
                 method: 'GET',
                 headers: {

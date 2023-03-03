@@ -19,13 +19,13 @@ export const AuthProvider = ({ children }) => {
 
 
     const [loading, setLoading] = useState(true);
-
+    const currentHost = `${window.location.protocol}//${window.location.hostname}`;
     const navigate = useNavigate();
 
     const loginUser = async (e) => {
         e.preventDefault();
         console.log("form submitted")
-        const response = await fetch('http://127.0.0.1:8000/api/token/', {
+        const response = await fetch(`${currentHost}:8000/api/token/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     const updateToken = async (e) => {
-        const response = await fetch('http://127.0.0.1:8000/api/token/refresh/', {
+        const response = await fetch(`${currentHost}:8000/api/token/refresh/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -94,7 +94,7 @@ export const AuthProvider = ({ children }) => {
         const secret = "";
         const encodedPassword = jwt_encode(password, secret);
         console.log(encodedPassword);
-        const response = await fetch('http://127.0.0.1:8000/api/users/', {
+        const response = await fetch(`${currentHost}:8000/api/users/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
