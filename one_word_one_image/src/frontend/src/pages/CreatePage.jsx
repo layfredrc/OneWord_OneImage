@@ -123,7 +123,7 @@ const CreatePage = () => {
         console.log('username', user.username)
         console.log('submit')
         setOverlay(true)
-        const response = await fetch(`${currentHost}:8000/api/clip/new`, {
+        const response = await fetch(`${currentHost}:8000/api/clip/new/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
