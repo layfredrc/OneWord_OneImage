@@ -239,7 +239,7 @@ const CreatePage = () => {
                         </Stepper.Step>
                         <Stepper.Step
                             label='Second step'
-                            description='Import audio file'
+                            description='Generate your clip !'
                             allowStepSelect={shouldAllowSelectStep(1)}
                         >
                             <Group
@@ -447,11 +447,6 @@ const CreatePage = () => {
                                                             !youtubeEndTimestamp ||
                                                             !clipTitle
                                                         }
-                                                        // onClick={() =>
-                                                        //     handleStepChange(
-                                                        //         active + 1
-                                                        //     )
-                                                        // }
                                                         type='submit'
                                                     >
                                                         Next Step
@@ -583,7 +578,7 @@ const CreatePage = () => {
                         </Stepper.Step>
                         <Stepper.Step
                             label='Final step'
-                            description='Generate your clip'
+                            description='Publish your clip !'
                             allowStepSelect={shouldAllowSelectStep(2)}
                         >
                             <Group

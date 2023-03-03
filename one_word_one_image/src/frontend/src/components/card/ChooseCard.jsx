@@ -1,6 +1,5 @@
 import React from 'react'
-import { createStyles, Paper, Text, Group, Image, Stack } from '@mantine/core'
-import {} from '@tabler/icons'
+import { createStyles, Paper, Text, Group, Image } from '@mantine/core'
 import GradientButton from '../button/GradientButton'
 import youtube from '../../assets/images/youtube.svg'
 import rafiki from '../../assets/images/rafiki.svg'
@@ -132,7 +131,7 @@ const ChooseCard = ({
                 >
                     <Image
                         src={rafiki}
-                        width={300}
+                        width={340}
                         fit='contain'
                     />
                     <Text
@@ -141,8 +140,7 @@ const ChooseCard = ({
                         color='white'
                         p='3rem'
                     >
-                        Let our audio recognition AI do the work for you
-                        (usefull for unknown songs)
+                        Import your own audio file (.wav)
                     </Text>
 
                     <GradientButton
@@ -153,7 +151,7 @@ const ChooseCard = ({
                         shadow='md'
                         onClick={handleOWOIAIClick}
                     >
-                        Use OneWordOneImage AI
+                        Use my own song
                     </GradientButton>
                 </Group>
             </Paper>
